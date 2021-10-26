@@ -1,0 +1,102 @@
+Changelog for Compact Headers
+
+2.23
+Disabled double clicking on the Header Toolbar.
+
+2.22
+Fixed first displayed message header clipping on Thunderbird 91.
+
+2.21
+Set max version.
+
+2.20
+Fixed twisty for Thunderbird 91.
+
+2.19
+Fixed header colors for macOS dark mode.
+
+2.18
+Fixed overflowing subject lines not truncating in Thunderbird 78.6.1.
+
+2.17
+Disabled double clicking inside email addresses on Windows.
+Fixed inconsistent header backgrounds for messages opened in a new tab.
+Added a workaround for the removal of msgHeaderViewDeck in Thunderbird 85.
+
+2.16
+Tweaked Windows double line appearance.
+Fixed header colors for Linux dark mode.
+
+2.15
+Limited double clicking to the top of the header area.
+Fixed header colors for Windows dark mode.
+
+2.14
+Fixed sometimes transparent header toolbar background.
+
+2.11
+Fixed a bug where truncated headers stayed clickable, even behind the toolbar.
+Fixed an error when "Message Header Toolbar Customize" was not installed.
+
+2.10
+In double line compact mode:
+- added To and Cc (recipients), when available.
+- moved To and Cc to just after From (author).
+Changed Replace Header Toolbar to Hide Header Toolbar,
+it still replaces it with the Website (link), when available.
+Integrated "Message Header Toolbar Customize" add-on menu item.
+
+2.9
+Added option to hide all headers.
+
+2.8
+Fixed some bugs with double clicking the header area:
+- Double clicking was not disabled on uninstall or disable.
+- Non-ASCII characters were rendered garbled after reinstall.
+Thunderbird may have to be restarted to clean up all errors.
+
+2.7
+Double clicking the header area toggles compact mode.
+Fixed a bug which made Replace Header Toolbar sometimes fail.
+
+2.6
+In double line compact mode optionally hide the header toolbar and:
+- replace it with To (recipient), when available or:
+- replace it with the Website (link), when available.
+Improved cleanup on uninstall & disable.
+Overflowing subject lines are hidden in compact mode.
+
+2.5
+PGP & S/MIME buttons are hidden in compact mode, icon resizing is obsolete.
+
+2.4
+Resized PGP & S/MIME icons (to fit on a single line).
+Fixed a bug which sometimes rendered non-ASCII characters garbled.
+
+2.3
+Added option (in context menu) to display headers on a single line.
+
+2.2
+Added Compact Headers to messages opened in new windows.
+Use onShutdown() instead of close() for uninstall & disable.
+Added a workaround for a bug not hiding all headers in view all headers.
+Added context menu to the main header area (view all/normal headers).
+Dropped support for versions older than Thunderbird 78.
+
+2.1
+Added shortcut key [Alt-D].
+
+2.0
+Added twisty to the header area.
+Removed the toolbarbutton.
+Fixed uninstall & disable.
+
+1.2
+Added tooltip.
+Added disabled state.
+
+1.1
+Changed icon.
+
+1.0
+First release.

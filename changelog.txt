@@ -1,5 +1,13 @@
 Changelog for Compact Headers
 
+2.25
+Fixed collapsing and truncating of long email addresses.
+
+2.24
+Added security buttons to compact views.
+Dropped support for versions older than Thunderbird 91.
+Added tooltip to the header subject line.
+
 2.23
 Disabled double clicking on the Header Toolbar.
 

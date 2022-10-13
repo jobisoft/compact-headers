@@ -1,5 +1,13 @@
 Changelog for Compact Headers
 
+3.1
+Added options to show To and Cc on the first line in double line compact mode.
+Improved double clicking in the header area.
+
+3.0
+Rewrite for Thunderbird 102, dropped support for all older versions.
+Some features had to be changed due to changes in Thunderbird.
+
 2.25
 Fixed collapsing and truncating of long email addresses.
 

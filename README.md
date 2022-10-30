@@ -10,8 +10,6 @@ Adds a context menu to the header area with options for the extension:
 - Display compact headers on a single line.
 - Show the To header on the first line in double line mode.
 - Show the Cc header on the first line in double line mode.
-- Show the Website from RSS feeds the first line in double line mode.
+- Show the Website from RSS feeds on the first line in double line mode.
 - Hide the header toolbar.
 - View all or normal expanded headers.
-
-Please use the provided support email address for bug reports.

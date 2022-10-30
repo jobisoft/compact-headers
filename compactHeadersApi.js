@@ -66,19 +66,19 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
               compactHeadersMoveCcHeader.setAttribute("tooltiptext", "Shows the Cc header on the first line in double line mode");
               compactHeadersMoveCcHeader.addEventListener("command", () => toggleCcHeader());
 
+              let compactHeadersMoveContentBaseheader = window.document.createXULElement("menuitem");
+              compactHeadersMoveContentBaseheader.id = "compactHeadersMoveContentBaseheader";
+              compactHeadersMoveContentBaseheader.setAttribute("type", "checkbox");
+              compactHeadersMoveContentBaseheader.setAttribute("label", "Show Website (RSS)");
+              compactHeadersMoveContentBaseheader.setAttribute("tooltiptext", "Shows the Website from RSS messages on the first line in double line mode");
+              compactHeadersMoveContentBaseheader.addEventListener("command", () => toggleContentBaseHeader());
+
               let compactHeadersViewAll = window.document.createXULElement("menuitem");
               compactHeadersViewAll.id = "compactHeadersViewAll";
-              compactHeadersViewAll.setAttribute("type", "radio");
+              compactHeadersViewAll.setAttribute("type", "checkbox");
               compactHeadersViewAll.setAttribute("label", "View All Headers");
-              compactHeadersViewAll.setAttribute("name", "compactHeaderViewGroup");
+              compactHeadersViewAll.setAttribute("tooltiptext", "Show All or Normal headers from a message in expanded mode");
               compactHeadersViewAll.addEventListener("command", () => markHeaders());
-
-              let compactHeadersViewNormal = window.document.createXULElement("menuitem");
-              compactHeadersViewNormal.id = "compactHeadersViewNormal";
-              compactHeadersViewNormal.setAttribute("type", "radio");
-              compactHeadersViewNormal.setAttribute("label", "View Normal Headers");
-              compactHeadersViewNormal.setAttribute("name", "compactHeaderViewGroup");
-              compactHeadersViewNormal.addEventListener("command", () => markHeaders());
 
               let compactHeadersBox = window.document.createXULElement("vbox");
               let compactHeadersButton = window.document.createXULElement("button");
@@ -105,6 +105,9 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
               let compactHeadersSeparator3 = window.document.createXULElement("menuseparator");
               compactHeadersSeparator3.id = "compactHeadersSeparator3";
 
+              let compactHeadersSeparator4 = window.document.createXULElement("menuseparator");
+              compactHeadersSeparator4.id = "compactHeadersSeparator4";
+
               let compactHeadersHideHeaders2 = window.document.createXULElement("menuitem");
               compactHeadersHideHeaders2.id = "compactHeadersHideHeaders2";
               compactHeadersHideHeaders2.addEventListener("command", () => hideHeaders());
@@ -126,8 +129,14 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
               expandedccBox.firstChild.nextSibling.style.minWidth = "inherit";
               let expandedccLabel = window.document.getElementById("expandedccLabel");
 
+              let expandedcontentBaseRow = window.document.getElementById("expandedcontent-baseRow");
+              let expandedcontentBaseBox = window.document.getElementById("expandedcontent-baseBox");
+              if (expandedcontentBaseBox) expandedcontentBaseBox.addEventListener("contextmenu", stopContext, true);
+              if (expandedcontentBaseBox) expandedcontentBaseBox.firstChild.nextSibling.style.minWidth = "inherit";
+              let expandedcontentBaseLabel = window.document.getElementById("expandedcontent-baseLabel");
+
               let expandedsubjectRow = window.document.getElementById("expandedsubjectRow");
-              if (expandedsubjectRow) expandedsubjectRow.setAttribute("style", "overflow: hidden; margin-block: auto;");
+              if (expandedsubjectRow) expandedsubjectRow.setAttribute("style", "overflow: hidden; margin-block: -1px 0;");
 
               let expandedsubjectBox = window.document.getElementById("expandedsubjectBox");
               if (expandedsubjectBox) expandedsubjectBox.addEventListener("dblclick", stopDblclick, true);
@@ -151,14 +160,11 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
 
               let headerSenderToolbarContainer = window.document.getElementById("headerSenderToolbarContainer");
               if (headerSenderToolbarContainer) headerSenderToolbarContainer.style.display = "flex";
-              if (headerSenderToolbarContainer) headerSenderToolbarContainer.style.flexWrap = "unset";
+              if (headerSenderToolbarContainer) headerSenderToolbarContainer.style.minHeight = "var(--recipient-avatar-size)";
               let headerSubjectSecurityContainer = window.document.getElementById("headerSubjectSecurityContainer");
 
               let headerHideLabels = window.document.getElementById("headerHideLabels");
               if (headerHideLabels) headerHideLabels.addEventListener("command", () => checkHiddenLabels());
-
-              let expandedcontentBaseBox = window.document.getElementById("expandedcontent-baseBox");
-              if (expandedcontentBaseBox) expandedcontentBaseBox.addEventListener("contextmenu", stopContext, true);
 
               let expandedmessageIdBox = window.document.getElementById("expandedmessage-idBox");
               if (expandedmessageIdBox) expandedmessageIdBox.addEventListener("contextmenu", stopContext, true);
@@ -182,10 +188,11 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
               compactHeadersPopup.append(compactHeadersSeparator3);
               compactHeadersPopup.append(compactHeadersMoveToHeader);
               compactHeadersPopup.append(compactHeadersMoveCcHeader);
+              compactHeadersPopup.append(compactHeadersMoveContentBaseheader);
+              compactHeadersPopup.append(compactHeadersSeparator4);
               compactHeadersPopup.append(compactHeadersHideToolbar);
               compactHeadersPopup.append(compactHeadersSeparator);
               compactHeadersPopup.append(compactHeadersViewAll);
-              compactHeadersPopup.append(compactHeadersViewNormal);
               window.mainPopupSet.append(compactHeadersPopup);
 
               mailContext.append(compactHeadersHideHeaders);
@@ -204,12 +211,14 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
               function singleLine() {
                 headerViewToolbox.setAttribute("style", "display: none;");
                 if (messageHeader.getAttribute("compact") == "compact") {
+                  headerSenderToolbarContainer.style.marginBottom = "unset";
                   expandedfromRow.insertAdjacentElement("beforebegin", headerSubjectSecurityContainer);
                   headerSubjectSecurityContainer.setAttribute("style", "max-width: 75%; height: 100%; z-index: 1; padding-inline-start: 2em;\
                     margin-block: -1em; margin-inline-start: -2em; background: linear-gradient(to right,transparent,buttonface 2em) !important;");
                   expandedfromRow.style.flex="auto";
                   expandedtoRow.setAttribute("style", "display: none;");
                   expandedccRow.setAttribute("style", "display: none;");
+                  expandedcontentBaseRow.setAttribute("style", "display: none;");
                 } else {
                   doubleLine();
                 }
@@ -217,11 +226,13 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
 
               function doubleLine() {
                 msgHeaderView.removeAttribute("style");
-                headerViewToolbox.setAttribute("style", "margin-block: -1px;");
+                headerViewToolbox.removeAttribute("style");
                 headerSenderToolbarContainer.insertAdjacentElement("afterend", headerSubjectSecurityContainer);
+                headerSenderToolbarContainer.style.marginBottom = "-3px";
                 expandedfromRow.style.flex="inherit";
                 expandedtoRow.removeAttribute("style");
                 expandedccRow.removeAttribute("style");
+                expandedcontentBaseRow.removeAttribute("style");
               }
 
               function setLines() {
@@ -280,11 +291,11 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
               function checkHeaders() {
                 checkHiddenLabels();
                 setDateLabelSubject();
-                messageHeader.setAttribute("persist", "compact; showall; singleline; hidetoolbar; hideheaders; movetoheader; moveccheader");
+                messageHeader.setAttribute("persist", "compact; showall; singleline; hidetoolbar; hideheaders; movetoheader; moveccheader; movecontentBaseheader");
                 if (messageHeader.getAttribute("showall") == "showall") {
                   compactHeadersViewAll.setAttribute("checked", true);
                 } else {
-                  compactHeadersViewNormal.setAttribute("checked", true);
+                  compactHeadersViewAll.setAttribute("checked", false);
                 }
 
                 if (messageHeader.getAttribute("hideheaders") == "hideheaders") {
@@ -298,7 +309,10 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                 }
 
                 if (messageHeader.getAttribute("compact") == "compact") {
-                  if (expandedfromBox) expandedfromBox.setAttribute("style", "overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
+                  headerSenderToolbarContainer.style.flexWrap = "unset";
+                  if (messageHeader.getAttribute("singleline") == "singleline") messageHeader.style.paddingBottom = "3px";
+                  else messageHeader.style.paddingBottom = "6px";
+                  expandedfromBox.setAttribute("style", "margin-block: 1px; overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
                   checkHiddenLabels();
                   checkToolbar();
                   compactHeadersButton.setAttribute("image", "chrome://messenger/skin/overrides/arrow-right-12.svg");
@@ -313,6 +327,10 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                   if (expandedsubjectBox) expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 1; max-width: fit-content;");
 
                   headerViewToolbox.style.flex="auto";
+                  expandedfromRow.insertAdjacentElement("beforebegin", expandedcontentBaseRow);
+                  expandedcontentBaseRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
+                    margin-block: -8px; padding-block: 8px; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
+                  expandedcontentBaseBox.setAttribute("style", "max-block-size: 1.5em; min-height:18px; overflow: hidden; min-width: 250%; max-height: 1.5em; margin-inline-end: -99em;");
                   expandedfromRow.insertAdjacentElement("beforebegin", expandedccRow);
                   expandedccRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
                     margin-block: -8px; padding-block: 8px; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
@@ -321,6 +339,9 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                   expandedtoRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
                     margin-block: -8px; padding-block: 8px; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 1; flex: inherit;");
                   expandedtoBox.setAttribute("style", "max-block-size: 1.5em; min-height:20px; overflow: hidden; min-width: 250%; max-height: 1.5em; margin-inline-end: 1.6em;");
+                  if ((messageHeader.getAttribute("movecontentBaseheader") != "movecontentBaseheader") || (messageHeader.getAttribute("singleline") == "singleline")) {
+                    expandedcontentBaseRow.style.display = "none";
+                  }
                   if ((messageHeader.getAttribute("moveccheader") != "moveccheader") || (messageHeader.getAttribute("singleline") == "singleline")) {
                     expandedccRow.style.display = "none";
                   }
@@ -328,7 +349,9 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                     expandedtoRow.style.display = "none";
                   }
                 } else {
-                  if (expandedfromBox) expandedfromBox.removeAttribute("style");
+                  headerSenderToolbarContainer.style.flexWrap = "wrap";
+                  messageHeader.style.paddingBottom = "0px";
+                  expandedfromBox.setAttribute("style", "margin-block: 1px");
                   checkHiddenLabels();
                   checkToolbar();
                   compactHeadersButton.setAttribute("image", "chrome://messenger/skin/overrides/arrow-down-12.svg");
@@ -343,6 +366,9 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                   if (expandedsubjectBox) expandedsubjectBox.setAttribute("style", "overflow-x: hidden; -webkit-line-clamp: 3; max-width: fit-content;");
                   doubleLine();
 
+                  headerSubjectSecurityContainer.insertAdjacentElement("afterend", expandedcontentBaseRow);
+                  expandedcontentBaseRow.removeAttribute("style");
+                  expandedcontentBaseBox.removeAttribute("style");
                   headerSubjectSecurityContainer.insertAdjacentElement("afterend", expandedccRow);
                   expandedccRow.removeAttribute("style");
                   expandedccBox.removeAttribute("style");
@@ -355,10 +381,10 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
               function markHeaders() {
                 if (compactHeadersViewAll.getAttribute("checked") == "true") {
                   messageHeader.setAttribute("showall", "showall");
-                  if (messageHeader.getAttribute("compact") != "compact") window.MsgViewAllHeaders();
+                  window.MsgViewAllHeaders();
                 } else {
                   messageHeader.removeAttribute("showall");
-                  if (messageHeader.getAttribute("compact") != "compact") window.MsgViewNormalHeaders();
+                  window.MsgViewNormalHeaders();
                 }
               }
 
@@ -371,7 +397,9 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                 setDateLabelSubject();
                 switch(messageHeader.getAttribute("compact")) {
                 case "compact": messageHeader.removeAttribute("compact");
-                  if (expandedfromBox) expandedfromBox.removeAttribute("style");
+                  headerSenderToolbarContainer.style.flexWrap = "wrap";
+                  messageHeader.style.paddingBottom = "0px";
+                  expandedfromBox.setAttribute("style", "margin-block: 1px");
                   checkHiddenLabels();
                   checkToolbar();
                   compactHeadersButton.setAttribute("image", "chrome://messenger/skin/overrides/arrow-down-12.svg");
@@ -388,6 +416,9 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                   if (expandedsubjectBox) expandedsubjectBox.setAttribute("style", "overflow-x: hidden; -webkit-line-clamp: 3; max-width: fit-content;");
                   doubleLine();
 
+                  headerSubjectSecurityContainer.insertAdjacentElement("afterend", expandedcontentBaseRow);
+                  expandedcontentBaseRow.removeAttribute("style");
+                  expandedcontentBaseBox.removeAttribute("style");
                   headerSubjectSecurityContainer.insertAdjacentElement("afterend", expandedccRow);
                   expandedccRow.removeAttribute("style");
                   expandedccBox.removeAttribute("style");
@@ -396,7 +427,10 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                   expandedtoBox.removeAttribute("style");
                 break;
                 default: messageHeader.setAttribute("compact", "compact");
-                  if (expandedfromBox) expandedfromBox.setAttribute("style", "overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
+                  headerSenderToolbarContainer.style.flexWrap = "unset";
+                  if (messageHeader.getAttribute("singleline") == "singleline") messageHeader.style.paddingBottom = "3px";
+                  else messageHeader.style.paddingBottom = "6px";
+                  expandedfromBox.setAttribute("style", "margin-block: 1px; overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
                   checkHiddenLabels();
                   checkToolbar();
                   compactHeadersButton.setAttribute("image", "chrome://messenger/skin/overrides/arrow-right-12.svg");
@@ -414,6 +448,10 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                   else doubleLine();
 
                   headerViewToolbox.style.flex="auto";
+                  expandedfromRow.insertAdjacentElement("beforebegin", expandedcontentBaseRow);
+                  expandedcontentBaseRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
+                    margin-block: -8px; padding-block: 8px; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
+                  expandedcontentBaseBox.setAttribute("style", "max-block-size: 1.5em; min-height:18px; overflow: hidden; min-width: 250%; max-height: 1.5em; margin-inline-end: -99em;");
                   expandedfromRow.insertAdjacentElement("beforebegin", expandedccRow);
                   expandedccRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
                     margin-block: -8px; padding-block: 8px; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
@@ -422,6 +460,9 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                   expandedtoRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
                     margin-block: -8px; padding-block: 8px; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 1; flex: inherit;");
                   expandedtoBox.setAttribute("style", "max-block-size: 1.5em; min-height:20px; overflow: hidden; min-width: 250%; max-height: 1.5em; margin-inline-end: 1.6em;");
+                  if ((messageHeader.getAttribute("movecontentBaseheader") != "movecontentBaseheader") || (messageHeader.getAttribute("singleline") == "singleline")) {
+                    expandedcontentBaseRow.style.display = "none";
+                  }
                   if ((messageHeader.getAttribute("moveccheader") != "moveccheader") || (messageHeader.getAttribute("singleline") == "singleline")) {
                     expandedccRow.style.display = "none";
                   }
@@ -435,9 +476,7 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                 if (messageHeader.getAttribute("hidetoolbar") == "hidetoolbar") {
                   hideToolbar();
                 } else {
-                  hideToolbar();
-                  headerViewToolbar.setAttribute("style", "margin: -8px -1em -8px -2em; padding: 6px 1em 6px 2.2em ; position: relative;\
-                    z-index: 3; background: linear-gradient(to right,transparent,buttonface 2em) !important; min-width: max-content;");
+                  showToolbar();
                 }
               }
 
@@ -446,7 +485,7 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
               }
 
               function showToolbar() {
-                headerViewToolbar.setAttribute("style", "margin: -8px -1em -8px -2em; padding: 6px 1em 6px 2.2em ; position: relative;\
+                headerViewToolbar.setAttribute("style", "margin: -1px -1em -1px -2em; padding: 0px 1em 0px 2.2em ; position: relative;\
                   z-index: 3; background: linear-gradient(to right,transparent,buttonface 2em) !important; min-width: max-content;");
               }
 
@@ -468,6 +507,15 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                 checkHeaders();
               }
 
+              function toggleContentBaseHeader() {
+                if (messageHeader.getAttribute("movecontentBaseheader") == "movecontentBaseheader") {
+                  messageHeader.removeAttribute("movecontentBaseheader")
+                } else {
+                  messageHeader.setAttribute("movecontentBaseheader", "movecontentBaseheader")
+                }
+                checkHeaders();
+              }
+
               function checkToCcHeaders() {
                 if (messageHeader.getAttribute("movetoheader") == "movetoheader") {
                   compactHeadersMoveToHeader.setAttribute("checked",true);
@@ -478,6 +526,11 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                   compactHeadersMoveCcHeader.setAttribute("checked",true);
                 } else {
                   compactHeadersMoveCcHeader.setAttribute("checked",false);
+                }
+                if (messageHeader.getAttribute("movecontentBaseheader") == "movecontentBaseheader") {
+                  compactHeadersMoveContentBaseheader.setAttribute("checked",true);
+                } else {
+                  compactHeadersMoveContentBaseheader.setAttribute("checked",false);
                 }
                 checkHeaders();
               }
@@ -506,6 +559,26 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                 }
               }
 
+              function compactHeadersViewAllHeaders() {
+                messageHeader.setAttribute("showall", "showall");
+                compactHeadersViewAll.setAttribute("checked", true);
+              }
+
+              function compactHeadersViewNormalHeaders() {
+                messageHeader.removeAttribute("showall");
+                compactHeadersViewAll.setAttribute("checked", false);
+              }
+
+              let viewnormalheaders = window.document.getElementById("viewnormalheaders");
+              let appmenu_viewnormalheaders = window.document.getElementById("appmenu_viewnormalheaders");
+              viewnormalheaders.addEventListener("click", compactHeadersViewNormalHeaders);
+              appmenu_viewnormalheaders.addEventListener("click", compactHeadersViewNormalHeaders);
+
+              let viewallheaders = window.document.getElementById("viewallheaders");
+              let appmenu_viewallheaders = window.document.getElementById("appmenu_viewallheaders");
+              viewallheaders.addEventListener("click", compactHeadersViewAllHeaders);
+              appmenu_viewallheaders.addEventListener("click", compactHeadersViewAllHeaders);
+
               messagepanebox.addEventListener('DOMContentLoaded', (event) => {
                 checkHiddenLabels();
                 checkLines();
@@ -518,6 +591,16 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                 if (messageHeader.getAttribute("compact") == "compact") {
                   expandedtoLabel.style.minWidth = "fit-content";
                   expandedccLabel.style.minWidth = "fit-content";
+                  expandedcontentBaseLabel.style.minWidth = "fit-content";
+                }
+                if (messageHeader.getAttribute("compact") == "compact") {
+                  try {
+                    expandedcontentBaseBox.firstChild.nextSibling.lastChild.firstChild.addEventListener("mousedown", doToggle);
+                  } catch (e) {};
+                } else {
+                  try {
+                    expandedcontentBaseBox.firstChild.nextSibling.lastChild.firstChild.removeEventListener("mousedown", doToggle);
+                  } catch (e) {};
                 }
                 if (messageHeader.getAttribute("compact") == "compact") {
                   try {
@@ -620,8 +703,6 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
 
     let compactHeadersViewAll = window.document.getElementById("compactHeadersViewAll");
     if (compactHeadersViewAll) compactHeadersViewAll.remove();
-    let compactHeadersViewNormal = window.document.getElementById("compactHeadersViewNormal");
-    if (compactHeadersViewNormal) compactHeadersViewNormal.remove();
     let compactHeadersPopup = window.document.getElementById("compactHeadersPopup");
     if (compactHeadersPopup) compactHeadersPopup.remove();
     let compactHeadersButton = window.document.getElementById("compactHeadersButton");
@@ -631,15 +712,17 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
 
     let expandedtoRow = window.document.getElementById("expandedtoRow");
     if (expandedtoRow) expandedtoRow.removeAttribute("style");
-
     let expandedccRow = window.document.getElementById("expandedccRow");
     if (expandedccRow) expandedccRow.removeAttribute("style");
+    let expandedcontentBaseRow = window.document.getElementById("expandedcontentBaseRow");
+    if (expandedcontentBaseRow) expandedcontentBaseRow.removeAttribute("style");
 
     let headerSubjectSecurityContainer = window.document.getElementById("headerSubjectSecurityContainer");
     let headerSenderToolbarContainer = window.document.getElementById("headerSenderToolbarContainer");
     if (headerSenderToolbarContainer) headerSenderToolbarContainer.insertAdjacentElement("afterend", headerSubjectSecurityContainer);
     if (expandedtoRow) headerSubjectSecurityContainer.insertAdjacentElement("beforebegin", expandedtoRow);
     if (expandedccRow) headerSubjectSecurityContainer.insertAdjacentElement("beforebegin", expandedccRow);
+    if (expandedcontentBaseRow) headerSubjectSecurityContainer.insertAdjacentElement("beforebegin", expandedcontentBaseRow);
     if (headerSubjectSecurityContainer) headerSubjectSecurityContainer.removeAttribute("style");
     if (headerSenderToolbarContainer) headerSenderToolbarContainer.removeAttribute("style");
 
@@ -648,9 +731,10 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
 
     let expandedtoLabel = window.document.getElementById("expandedtoLabel");
     if (expandedtoLabel) expandedtoLabel.removeAttribute("style");
-
     let expandedccLabel = window.document.getElementById("expandedccLabel");
     if (expandedccLabel) expandedccLabel.removeAttribute("style");
+    let expandedcontentBaseLabel = window.document.getElementById("expandedcontentBaseLabel");
+    if (expandedcontentBaseLabel) expandedcontentBaseLabel.removeAttribute("style");
 
     let dateLabel = window.document.getElementById("dateLabel");
     let expandedtoBox = window.document.getElementById("expandedtoBox");
@@ -743,8 +827,6 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
 
     let compactHeadersViewAll = window.document.getElementById("compactHeadersViewAll");
     if (compactHeadersViewAll) compactHeadersViewAll.remove();
-    let compactHeadersViewNormal = window.document.getElementById("compactHeadersViewNormal");
-    if (compactHeadersViewNormal) compactHeadersViewNormal.remove();
     let compactHeadersPopup = window.document.getElementById("compactHeadersPopup");
     if (compactHeadersPopup) compactHeadersPopup.remove();
     let compactHeadersButton = window.document.getElementById("compactHeadersButton");
@@ -754,15 +836,17 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
 
     let expandedtoRow = window.document.getElementById("expandedtoRow");
     if (expandedtoRow) expandedtoRow.removeAttribute("style");
-
     let expandedccRow = window.document.getElementById("expandedccRow");
     if (expandedccRow) expandedccRow.removeAttribute("style");
+    let expandedcontentBaseRow = window.document.getElementById("expandedcontentBaseRow");
+    if (expandedcontentBaseRow) expandedcontentBaseRow.removeAttribute("style");
 
     let headerSubjectSecurityContainer = window.document.getElementById("headerSubjectSecurityContainer");
     let headerSenderToolbarContainer = window.document.getElementById("headerSenderToolbarContainer");
     if (headerSenderToolbarContainer) headerSenderToolbarContainer.insertAdjacentElement("afterend", headerSubjectSecurityContainer);
     if (expandedtoRow) headerSubjectSecurityContainer.insertAdjacentElement("beforebegin", expandedtoRow);
     if (expandedccRow) headerSubjectSecurityContainer.insertAdjacentElement("beforebegin", expandedccRow);
+    if (expandedcontentBaseRow) headerSubjectSecurityContainer.insertAdjacentElement("beforebegin", expandedcontentBaseRow);
     if (headerSubjectSecurityContainer) headerSubjectSecurityContainer.removeAttribute("style");
     if (headerSenderToolbarContainer) headerSenderToolbarContainer.removeAttribute("style");
 
@@ -771,9 +855,10 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
 
     let expandedtoLabel = window.document.getElementById("expandedtoLabel");
     if (expandedtoLabel) expandedtoLabel.removeAttribute("style");
-
     let expandedccLabel = window.document.getElementById("expandedccLabel");
     if (expandedccLabel) expandedccLabel.removeAttribute("style");
+    let expandedcontentBaseLabel = window.document.getElementById("expandedcontentBaseLabel");
+    if (expandedcontentBaseLabel) expandedcontentBaseLabel.removeAttribute("style");
 
     let dateLabel = window.document.getElementById("dateLabel");
     let expandedtoBox = window.document.getElementById("expandedtoBox");

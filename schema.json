@@ -6,7 +6,13 @@
         "name": "compactHeaders",
         "type": "function",
         "async": true,
-        "parameters": []
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "windowId",
+            "optional": true
+          }
+        ]
       }
     ]
   }

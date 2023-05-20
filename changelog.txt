@@ -8,18 +8,9 @@ Added option to show tags on the second line in double line compact mode.
 New version for Thunderbird 107, set max version to Thunderbird 109.
 Fixed Website (RSS) line cleanup on uninstall & disable.
 
-3.5
-Backed out fix for overflowing headers, this is basically 3.2 with some small fixes.
-
-3.4
-Quick fix for compatibility with "Message Header Toolbar Customize".
-
-3.3
-Fixed truncating of overflowing headers when the header toolbar is hidden.
-
 3.2
 Fixed truncated "From" header with long expanded headers on small screens.
-Changed View All/Normal Headers radio buttons to a View All Headers checkmark.
+Changed view all/normal headers radio buttons to a view all headers checkmark.
 Added an option to show the Website (RSS) on the first line in double line compact mode.
 Fixed syncing of View All/Normal Headers between Thunderbird and this add-on.
 

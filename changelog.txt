@@ -1,7 +1,7 @@
 Changelog for Compact Headers
 
 5.0
-New version for Thunderbird 111, set max version to Thunderbird 115.
+New version for Thunderbird 111, set max version to Thunderbird 116.*.
 Added option to show tags on the second line in double line compact mode.
 
 4.0

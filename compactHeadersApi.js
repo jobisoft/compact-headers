@@ -17,17 +17,17 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
   getAPI(context) {
     return {
       compactHeadersApi: {
-        async compactHeaders() {
+        async compactHeaders(windowId) {
           ExtensionSupport.registerWindowListener("compactHeadersListener", {
             chromeURLs: [
               "chrome://messenger/content/messenger.xhtml",
               "chrome://messenger/content/messageWindow.xhtml"
             ],
             onLoadWindow(window) {
-              let recentWindow = Services.wm.getMostRecentWindow("mail:3pane");
-
-              let aboutMessage = Services.wm.getMostRecentBrowserWindow().getBrowser().getRootNode();
-
+              let aboutMessage = context.extension.windowManager.get(windowId, context).window.getBrowser().getRootNode();
+              let browser = context.extension.windowManager.get(windowId, context).window.getBrowser();
+              browser.setAttribute("chActive", true);
+              console.debug("start checking");
               let msgHeaderView = aboutMessage.getElementById("msgHeaderView");
               let messageHeader = aboutMessage.getElementById("messageHeader");
               let messagepanebox = aboutMessage.getElementById("messagepanebox");
@@ -131,7 +131,7 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
               compactHeadersHideHeaders2.addEventListener("command", () => hideHeaders());
 
               let expandedfromRow = aboutMessage.getElementById("expandedfromRow");
-              expandedfromRow.setAttribute("style", "align-items: center; margin: auto auto auto -2px; overflow: hidden;");
+              expandedfromRow.setAttribute("style", "align-items: center; margin-block: inherit; margin-inline: -2px auto; overflow: hidden; min-width: fit-content;");
               expandedfromRow.insertAdjacentElement("afterbegin", compactHeadersBox);
               let expandedfromBox = aboutMessage.getElementById("expandedfromBox");
               expandedfromBox.setAttribute("style", "margin-block: 1px; overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
@@ -347,6 +347,8 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
                 setDateLabelSubject();
                 checkToolbar();
                 moveExpandedtagsBox();
+                checkHiddenLabels();
+                console.debug("headers checked");
               }
 
               function setCompactHeaders() {
@@ -582,11 +584,12 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
               }
               checkLines();
               markToolbar();
-              checkHiddenLabels();
               checkToCcHeaders();
               checkOthers();
               checkHeaders();
               ExtensionSupport.unregisterWindowListener("compactHeadersListener");
+              browser.setAttribute("chActive", false);
+              console.debug("all checked");
             },
           });
         },

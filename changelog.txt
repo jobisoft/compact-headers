@@ -1,8 +1,11 @@
 Changelog for Compact Headers
 
 5.0
-New version for Thunderbird 111, set max version to Thunderbird 116.*.
+Supernova update, still contains some bugs, requires restart to disable.
+Please switch to expanded mode before uninstalling or disabling.
 Added option to show tags on the second line in double line compact mode.
+Set minimum version to Thunderbird 111.0.
+Set maximum version to Thunderbird 117.*.
 
 4.0
 New version for Thunderbird 107, set max version to Thunderbird 109.

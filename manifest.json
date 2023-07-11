@@ -21,8 +21,8 @@
   "applications": {
     "gecko": {
       "id": "compactHeaders@dillinger",
-      "strict_min_version": "111.0a1",
-      "strict_max_version": "*"
+      "strict_min_version": "111.0",
+      "strict_max_version": "117.*"
     }
   },
   "icons": {

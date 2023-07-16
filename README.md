@@ -11,5 +11,5 @@ Adds a context menu to the header area with options for the extension:
 - Show the To header on the first line in double line mode.
 - Show the Cc header on the first line in double line mode.
 - Show the Website from RSS feeds on the first line in double line mode.
+- Show message tags on the second line in double line mode.
 - Hide the header toolbar.
-- View all or normal expanded headers.

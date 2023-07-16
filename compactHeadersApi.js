@@ -33,7 +33,7 @@ function install(window) {
   let otherActionsBox = document.getElementById("otherActionsBox");
   //let mailContext = document.getElementById("mailContext");
   //let menu_HeadersPopup = document.getElementById("menu_HeadersPopup");
-  let headerViewAllHeaders = document.getElementById("headerViewAllHeaders");
+  //let headerViewAllHeaders = document.getElementById("headerViewAllHeaders");
 
   let compactHeadersPopup = document.createXULElement("menupopup");
   compactHeadersPopup.id = "compactHeadersPopup";
@@ -81,12 +81,12 @@ function install(window) {
   compactHeadersmovetags.setAttribute("tooltiptext", "Show message Tags on the second line in double line mode");
   compactHeadersmovetags.addEventListener("command", () => toggleTags());
 
-  let compactHeadersViewAll = document.createXULElement("menuitem");
-  compactHeadersViewAll.id = "compactHeadersViewAll";
-  compactHeadersViewAll.setAttribute("type", "checkbox");
-  compactHeadersViewAll.setAttribute("label", "View All Headers");
-  compactHeadersViewAll.setAttribute("tooltiptext", "Show All or Normal headers from a message in expanded mode");
-  compactHeadersViewAll.addEventListener("command", () => markHeaders());
+  //let compactHeadersViewAll = document.createXULElement("menuitem");
+  //compactHeadersViewAll.id = "compactHeadersViewAll";
+  //compactHeadersViewAll.setAttribute("type", "checkbox");
+  //compactHeadersViewAll.setAttribute("label", "View All Headers");
+  //compactHeadersViewAll.setAttribute("tooltiptext", "Show All or Normal headers from a message in expanded mode");
+  //compactHeadersViewAll.addEventListener("command", () => markHeaders());
 
   try {
     let compactHeadersBox = document.getElementById("compactHeadersBox");
@@ -212,8 +212,8 @@ function install(window) {
   compactHeadersPopup.append(compactHeadersmovetags);
   compactHeadersPopup.append(compactHeadersSeparator4);
   compactHeadersPopup.append(compactHeadersHideToolbar);
-  compactHeadersPopup.append(compactHeadersSeparator);
-  compactHeadersPopup.append(compactHeadersViewAll);
+  //compactHeadersPopup.append(compactHeadersSeparator);
+  //compactHeadersPopup.append(compactHeadersViewAll);
   if (msgHeaderView.lastChild.id == "compactHeadersPopup") {
     //console.debug("compactHeadersPopup exists");
   } else {
@@ -324,8 +324,8 @@ function install(window) {
     messageHeader.setAttribute("persist", "compact; singleline; hidetoolbar; hideheaders; movetoheader; moveccheader; movecontentbaseheader; movetags");
     headerSubjectSecurityContainer.removeAttribute("hidden");
 
-    if (headerViewAllHeaders.getAttribute("checked") == "true") window.top.MsgViewAllHeaders();
-    else window.top.MsgViewNormalHeaders();
+    //if (headerViewAllHeaders.getAttribute("checked") == "true") window.top.MsgViewAllHeaders();
+    //else window.top.MsgViewNormalHeaders();
 
     //if (messageHeader.getAttribute("hideheaders") == "hideheaders") {
     //compactHeadersHideHeaders.setAttribute("label", "Show Headers");
@@ -344,7 +344,7 @@ function install(window) {
     checkToolbar();
     moveExpandedtagsBox();
     checkHiddenLabels();
-    console.debug("headers checked");
+    //console.debug("headers checked");
   }
 
   function setCompactHeaders() {
@@ -418,14 +418,14 @@ function install(window) {
     expandedtoBox.removeAttribute("style");
   }
 
-  function markHeaders() {
-    if (compactHeadersViewAll.getAttribute("checked") == "true") {
-      headerViewAllHeaders.setAttribute("checked", true)
-    } else {
-      headerViewAllHeaders.setAttribute("checked", false);
-    }
-    checkHeaders();
-  }
+  //function markHeaders() {
+    //if (compactHeadersViewAll.getAttribute("checked") == "true") {
+      //headerViewAllHeaders.setAttribute("checked", true)
+    //} else {
+      //headerViewAllHeaders.setAttribute("checked", false);
+    //}
+    //checkHeaders();
+  //}
 
   function setDateLabelSubject() {
     expandedsubjectBox.insertAdjacentElement("afterend", dateLabel);
@@ -557,11 +557,11 @@ function install(window) {
   }
 
   function checkOthers() {
-    if (headerViewAllHeaders.getAttribute("checked") == "true") {
-      compactHeadersViewAll.setAttribute("checked", true);
-    } else {
-      compactHeadersViewAll.setAttribute("checked", false);
-    }
+    //if (headerViewAllHeaders.getAttribute("checked") == "true") {
+      //compactHeadersViewAll.setAttribute("checked", true);
+    //} else {
+      //compactHeadersViewAll.setAttribute("checked", false);
+    //}
     if (messageHeader.getAttribute("compact") == "compact") {
       expandedtoLabel.style.minWidth = "fit-content";
       expandedccLabel.style.minWidth = "fit-content";
@@ -583,8 +583,7 @@ function install(window) {
   checkToCcHeaders();
   checkOthers();
   checkHeaders();
-
-  console.debug("all checked");
+  //console.debug("all checked");
 }
 
 function uninstall(window) {
@@ -656,8 +655,8 @@ function uninstall(window) {
   //let compactHeadersHideHeaders2 = document.getElementById("compactHeadersHideHeaders2");
   //if (compactHeadersHideHeaders2) compactHeadersHideHeaders2.remove();
 
-  let compactHeadersViewAll = document.getElementById("compactHeadersViewAll");
-  if (compactHeadersViewAll) compactHeadersViewAll.remove();
+  //let compactHeadersViewAll = document.getElementById("compactHeadersViewAll");
+  //if (compactHeadersViewAll) compactHeadersViewAll.remove();
   let compactHeadersPopup = document.getElementById("compactHeadersPopup");
   if (compactHeadersPopup) compactHeadersPopup.remove();
   let compactHeadersButton = document.getElementById("compactHeadersButton");

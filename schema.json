@@ -9,7 +9,7 @@
         "parameters": [
           {
             "type": "integer",
-            "name": "windowId",
+            "name": "tabId",
             "optional": true
           }
         ]

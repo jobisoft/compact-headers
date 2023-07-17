@@ -569,15 +569,21 @@ function install(window) {
     }
     if (messageHeader.getAttribute("compact") == "compact") {
       try {
-        expandedccBox.firstChild.nextSibling.lastChild.firstChild.addEventListener("mousedown", doToggle, { once: true });
+        expandedccBox.firstChild.nextSibling.lastChild.firstChild.addEventListener("mousedown", expandHeaders, { once: true });
       } catch (e) { };
     }
     if (messageHeader.getAttribute("compact") == "compact") {
       try {
-        expandedtoBox.firstChild.nextSibling.lastChild.firstChild.addEventListener("mousedown", doToggle, { once: true });
+        expandedtoBox.firstChild.nextSibling.lastChild.firstChild.addEventListener("mousedown", expandHeaders, { once: true });
       } catch (e) { };
     }
   }
+
+  function expandHeaders() {
+    messageHeader.removeAttribute("compact");
+    checkHeaders();
+  }
+
   checkLines();
   markToolbar();
   checkToCcHeaders();

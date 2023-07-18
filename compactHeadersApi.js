@@ -1,11 +1,5 @@
 var { ExtensionCommon } = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
 
-let doToggle = undefined; //declare it here to make removeEventlistener work
-
-function stopDblclick(e) {
-  e.stopPropagation();
-}
-
 function stopContext(e) {
   e.preventDefault();
 }
@@ -31,10 +25,6 @@ function install(window) {
   let headerViewToolbox = document.getElementById("header-view-toolbox");
   let headerViewToolbar = document.getElementById("header-view-toolbar");
   let otherActionsBox = document.getElementById("otherActionsBox");
-  //let mailContext = document.getElementById("mailContext");
-  //let menu_HeadersPopup = document.getElementById("menu_HeadersPopup");
-  //let headerViewAllHeaders = document.getElementById("headerViewAllHeaders");
-
   let compactHeadersPopup = document.createXULElement("menupopup");
   compactHeadersPopup.id = "compactHeadersPopup";
   msgHeaderView.setAttribute("context", "compactHeadersPopup");
@@ -81,13 +71,6 @@ function install(window) {
   compactHeadersmovetags.setAttribute("tooltiptext", "Show message Tags on the second line in double line mode");
   compactHeadersmovetags.addEventListener("command", () => toggleTags());
 
-  //let compactHeadersViewAll = document.createXULElement("menuitem");
-  //compactHeadersViewAll.id = "compactHeadersViewAll";
-  //compactHeadersViewAll.setAttribute("type", "checkbox");
-  //compactHeadersViewAll.setAttribute("label", "View All Headers");
-  //compactHeadersViewAll.setAttribute("tooltiptext", "Show All or Normal headers from a message in expanded mode");
-  //compactHeadersViewAll.addEventListener("command", () => markHeaders());
-
   try {
     let compactHeadersBox = document.getElementById("compactHeadersBox");
     if (compactHeadersBox) compactHeadersBox.remove();
@@ -109,22 +92,11 @@ function install(window) {
   let compactHeadersSeparator = document.createXULElement("menuseparator");
   compactHeadersSeparator.id = "compactHeadersSeparator";
 
-  //let compactHeadersHideHeaders = document.createXULElement("menuitem");
-  //compactHeadersHideHeaders.id = "compactHeadersHideHeaders";
-  //compactHeadersHideHeaders.addEventListener("command", () => hideHeaders());
-
-  //let compactHeadersSeparator2 = document.createXULElement("menuseparator");
-  //compactHeadersSeparator2.id = "compactHeadersSeparator2";
-
   let compactHeadersSeparator3 = document.createXULElement("menuseparator");
   compactHeadersSeparator3.id = "compactHeadersSeparator3";
 
   let compactHeadersSeparator4 = document.createXULElement("menuseparator");
   compactHeadersSeparator4.id = "compactHeadersSeparator4";
-
-  //let compactHeadersHideHeaders2 = document.createXULElement("menuitem");
-  //compactHeadersHideHeaders2.id = "compactHeadersHideHeaders2";
-  //compactHeadersHideHeaders2.addEventListener("command", () => hideHeaders());
 
   let expandedfromRow = document.getElementById("expandedfromRow");
   expandedfromRow.setAttribute("style", "align-items: center; margin-block: inherit; margin-inline: -2px auto; overflow: hidden; min-width: fit-content;");
@@ -157,7 +129,6 @@ function install(window) {
   if (expandedsubjectRow) expandedsubjectRow.setAttribute("style", "overflow: hidden; margin-block: -1px 0;");
 
   let expandedsubjectBox = document.getElementById("expandedsubjectBox");
-  if (expandedsubjectBox) expandedsubjectBox.addEventListener("dblclick", stopDblclick, true);
   if (expandedsubjectBox) expandedsubjectBox.addEventListener("contextmenu", stopContext, true);
 
   let expandedsubjectLabel = document.getElementById("expandedsubjectLabel");
@@ -166,7 +137,6 @@ function install(window) {
 
   let dateLabel = document.getElementById("dateLabel");
   if (dateLabel) dateLabel.setAttribute("style", "margin: auto 6px auto auto; min-width: fit-content; padding-inline-start: 1em;");
-  if (dateLabel) dateLabel.addEventListener("dblclick", stopDblclick, true);
   if (dateLabel) dateLabel.addEventListener("contextmenu", stopContext, true);
   let dateLabelSubject = document.getElementById("dateLabelSubject");
 
@@ -212,31 +182,9 @@ function install(window) {
   compactHeadersPopup.append(compactHeadersmovetags);
   compactHeadersPopup.append(compactHeadersSeparator4);
   compactHeadersPopup.append(compactHeadersHideToolbar);
-  //compactHeadersPopup.append(compactHeadersSeparator);
-  //compactHeadersPopup.append(compactHeadersViewAll);
   if (msgHeaderView.lastChild.id == "compactHeadersPopup") {
-    //console.debug("compactHeadersPopup exists");
   } else {
     msgHeaderView.append(compactHeadersPopup);
-    //console.debug("compactHeadersPopup added");
-  }
-
-  //mailContext.append(compactHeadersHideHeaders);
-  //menu_HeadersPopup.append(compactHeadersSeparator2);
-  //menu_HeadersPopup.append(compactHeadersHideHeaders2);
-
-  doToggle = () => toggleHeaders();
-  setdblclick();
-  if (headerViewToolbar) headerViewToolbar.addEventListener("dblclick", stopDblclick, true);
-
-  function setdblclick() {
-    if (messageHeader.getAttribute("doubleclick") == "added") {
-      //console.debug("doubleclick exists");
-    } else {
-      messageHeader.addEventListener("dblclick", doToggle, { once: true });
-      messageHeader.setAttribute("doubleclick", "added");
-      //console.debug("doubleclick added");
-    }
   }
 
   function singleLine() {
@@ -306,36 +254,9 @@ function install(window) {
     }
   }
 
-  //function hideHeaders() {
-  //if (messageHeader.getAttribute("hideheaders") == "hideheaders") {
-  //compactHeadersHideHeaders.setAttribute("label", "Hide Headers");
-  //compactHeadersHideHeaders2.setAttribute("label", "Hide Headers");
-  //msgHeaderView.setAttribute("style", "background: buttonface !important;");
-  //messageHeader.removeAttribute("hideheaders");
-  //} else {
-  //compactHeadersHideHeaders.setAttribute("label", "Show Headers");
-  //compactHeadersHideHeaders2.setAttribute("label", "Show Headers");
-  //msgHeaderView.setAttribute("style", "margin-top: -1px; visibility: collapse;");
-  //messageHeader.setAttribute("hideheaders", "hideheaders");
-  //}
-  //}
-
   function checkHeaders() {
     messageHeader.setAttribute("persist", "compact; singleline; hidetoolbar; hideheaders; movetoheader; moveccheader; movecontentbaseheader; movetags");
     headerSubjectSecurityContainer.removeAttribute("hidden");
-
-    //if (headerViewAllHeaders.getAttribute("checked") == "true") window.top.MsgViewAllHeaders();
-    //else window.top.MsgViewNormalHeaders();
-
-    //if (messageHeader.getAttribute("hideheaders") == "hideheaders") {
-    //compactHeadersHideHeaders.setAttribute("label", "Show Headers");
-    //compactHeadersHideHeaders2.setAttribute("label", "Show Headers");
-    //msgHeaderView.setAttribute("style", "margin-top: -1px; visibility: collapse;");
-    //} else {
-    //compactHeadersHideHeaders.setAttribute("label", "Hide Headers");
-    //compactHeadersHideHeaders2.setAttribute("label", "Hide Headers");
-    //msgHeaderView.setAttribute("style", "background: buttonface !important;");
-    //}
 
     if (messageHeader.getAttribute("compact") == "compact") setCompactHeaders();
     else setDefaultHeaders();
@@ -344,7 +265,6 @@ function install(window) {
     checkToolbar();
     moveExpandedtagsBox();
     checkHiddenLabels();
-    //console.debug("headers checked");
   }
 
   function setCompactHeaders() {
@@ -352,7 +272,6 @@ function install(window) {
     if (messageHeader.getAttribute("singleline") == "singleline") messageHeader.style.paddingBottom = "3px";
     else messageHeader.style.paddingBottom = "6px";
     compactHeadersButton.setAttribute("class", "button button-flat");
-    //console.debug("arrow-right");
     compactHeadersButton.image = "chrome://messenger/skin/overrides/arrow-right-12.svg";
     compactHeadersBox.setAttribute("style", "margin-inline-start: -8px; position: relative; z-index: 1;");
     compactHeadersButton.setAttribute("tooltiptext", "Show Details");
@@ -394,7 +313,6 @@ function install(window) {
     headerSenderToolbarContainer.style.flexWrap = "wrap";
     messageHeader.style.paddingBottom = "0px";
     compactHeadersButton.setAttribute("class", "button button-flat");
-    //console.debug("arrow-down");
     compactHeadersButton.image = "chrome://messenger/skin/overrides/arrow-down-12.svg";
     compactHeadersBox.setAttribute("style", "margin-inline-start: -8px; position: relative; z-index: 1;");
     compactHeadersButton.setAttribute("tooltiptext", "Hide Details");
@@ -418,15 +336,6 @@ function install(window) {
     expandedtoBox.removeAttribute("style");
   }
 
-  //function markHeaders() {
-    //if (compactHeadersViewAll.getAttribute("checked") == "true") {
-      //headerViewAllHeaders.setAttribute("checked", true)
-    //} else {
-      //headerViewAllHeaders.setAttribute("checked", false);
-    //}
-    //checkHeaders();
-  //}
-
   function setDateLabelSubject() {
     expandedsubjectBox.insertAdjacentElement("afterend", dateLabel);
     dateLabelSubject.setAttribute("style", "display: none;");
@@ -438,7 +347,6 @@ function install(window) {
         break;
       default: messageHeader.setAttribute("compact", "compact");
     }
-    messageHeader.addEventListener("dblclick", doToggle, { once: true });
     window.ReloadMessage();
     checkHeaders();
   }
@@ -558,11 +466,6 @@ function install(window) {
   }
 
   function checkOthers() {
-    //if (headerViewAllHeaders.getAttribute("checked") == "true") {
-      //compactHeadersViewAll.setAttribute("checked", true);
-    //} else {
-      //compactHeadersViewAll.setAttribute("checked", false);
-    //}
     if (messageHeader.getAttribute("compact") == "compact") {
       expandedtoLabel.style.minWidth = "fit-content";
       expandedccLabel.style.minWidth = "fit-content";
@@ -590,7 +493,6 @@ function install(window) {
   checkToCcHeaders();
   checkOthers();
   checkHeaders();
-  //console.debug("all checked");
 }
 
 function uninstall(window) {
@@ -608,12 +510,10 @@ function uninstall(window) {
     }
     messageHeader.removeAttribute("compact");
     messageHeader.removeAttribute("style");
-    messageHeader.removeEventListener("dblclick", doToggle);
   }
 
   let headerViewToolbar = document.getElementById("header-view-toolbar");
   if (headerViewToolbar) headerViewToolbar.removeAttribute("style");
-  if (headerViewToolbar) headerViewToolbar.removeEventListener("dblclick", stopDblclick, true);
 
   let expandedfromRow = document.getElementById("expandedfromRow");
   if (expandedfromRow) expandedfromRow.style.marginLeft = "0px";
@@ -635,7 +535,6 @@ function uninstall(window) {
 
   let expandedsubjectBox = document.getElementById("expandedsubjectBox");
   if (expandedsubjectBox) expandedsubjectBox.removeAttribute("style");
-  if (expandedsubjectBox) expandedsubjectBox.removeEventListener("dblclick", stopDblclick, true);
   if (expandedsubjectBox) expandedsubjectBox.removeEventListener("contextmenu", stopContext, true);
 
   let expandedcontentBaseBox = document.getElementById("expandedcontent-baseBox");
@@ -653,17 +552,6 @@ function uninstall(window) {
   let expandedreferencesBox = document.getElementById("expandedreferencesBox");
   if (expandedreferencesBox) expandedreferencesBox.removeEventListener("contextmenu", stopContext, true);
 
-  //let compactHeadersHideHeaders = document.getElementById("compactHeadersHideHeaders");
-  //if (compactHeadersHideHeaders) compactHeadersHideHeaders.remove();
-
-  //let compactHeadersSeparator2 = document.getElementById("compactHeadersSeparator2");
-  //if (compactHeadersSeparator2) compactHeadersSeparator2.remove();
-
-  //let compactHeadersHideHeaders2 = document.getElementById("compactHeadersHideHeaders2");
-  //if (compactHeadersHideHeaders2) compactHeadersHideHeaders2.remove();
-
-  //let compactHeadersViewAll = document.getElementById("compactHeadersViewAll");
-  //if (compactHeadersViewAll) compactHeadersViewAll.remove();
   let compactHeadersPopup = document.getElementById("compactHeadersPopup");
   if (compactHeadersPopup) compactHeadersPopup.remove();
   let compactHeadersButton = document.getElementById("compactHeadersButton");
@@ -705,7 +593,6 @@ function uninstall(window) {
   if (expandedtoBox) expandedtoBox.removeAttribute("style");
 
   if (dateLabel) dateLabel.removeAttribute("style");
-  if (dateLabel) dateLabel.removeEventListener("dblclick", stopDblclick, true);
   if (dateLabel) dateLabel.removeEventListener("contextmenu", stopContext, true);
 
   let dateLabelSubject = document.getElementById("dateLabelSubject");

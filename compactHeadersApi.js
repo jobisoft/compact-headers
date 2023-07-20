@@ -620,7 +620,9 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
           let messageBrowserWindow = getMessageWindow(nativeTab);
           if (messageBrowserWindow) {
             // Load into the freshly opened messageBrowser window.
-            install(messageBrowserWindow);
+            try {
+              install(messageBrowserWindow);
+            } catch (e) { }
           }
         },
       },

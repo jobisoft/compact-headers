@@ -1,5 +1,8 @@
 Changelog for Compact Headers
 
+5.2
+Realigned From: header.
+
 5.1
 Supernova update, many thanks to John Bieling.
 Options "Hide Headers" & "Show All Headers" have been removed, these may return later.

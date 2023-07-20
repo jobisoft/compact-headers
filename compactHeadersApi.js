@@ -99,7 +99,7 @@ function install(window) {
   compactHeadersSeparator4.id = "compactHeadersSeparator4";
 
   let expandedfromRow = document.getElementById("expandedfromRow");
-  expandedfromRow.setAttribute("style", "align-items: center; margin-block: inherit; margin-inline: -2px auto; overflow: hidden; min-width: fit-content;");
+  expandedfromRow.setAttribute("style", "align-items: center; margin-block: -6px; padding-block: 6px; margin-inline: -2px auto; overflow: hidden; min-width: fit-content;");
   expandedfromRow.insertAdjacentElement("afterbegin", compactHeadersBox);
   let expandedfromBox = document.getElementById("expandedfromBox");
   expandedfromBox.setAttribute("style", "margin-block: 1px; overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
@@ -107,6 +107,7 @@ function install(window) {
   expandedfromBox.firstChild.nextSibling.style.minWidth = "inherit";
   let expandedfromLabel = document.getElementById("expandedfromLabel");
   if (expandedfromLabel) expandedfromLabel.style.width = "4em";
+  if (expandedfromLabel) expandedfromLabel.style.marginBlock = "1px";
   if (expandedfromLabel) expandedfromLabel.style.marginInline = "-2px";
 
   let expandedtoRow = document.getElementById("expandedtoRow");

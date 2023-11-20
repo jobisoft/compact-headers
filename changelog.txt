@@ -2,6 +2,8 @@ Changelog for Compact Headers
 
 5.2
 Realigned From: header.
+Fixed long subject line wrapping.
+Fixed some unwanted scrolling in single compact mode on Windows.
 
 5.1
 Supernova update, many thanks to John Bieling.

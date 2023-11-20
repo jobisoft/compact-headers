@@ -192,9 +192,10 @@ function install(window) {
     headerViewToolbox.setAttribute("style", "display: none;");
     if (messageHeader.getAttribute("compact") == "compact") {
       headerSenderToolbarContainer.style.marginBottom = "unset";
+      headerSenderToolbarContainer.style.alignItems = "center";
       expandedfromRow.insertAdjacentElement("beforebegin", headerSubjectSecurityContainer);
-      headerSubjectSecurityContainer.setAttribute("style", "max-width: 75%; height: 1.3em; z-index: 1; padding-inline-start: 2em;\
-        margin-block: -1em; margin-inline-start: -2em; background: linear-gradient(to right,transparent,buttonface 2em) !important;");
+      headerSubjectSecurityContainer.setAttribute("style", "height: 1.3em; margin-block: -1em; margin-inline-start: -2em;\
+        padding-inline-start: 2em; z-index: 1; background: linear-gradient(to right,transparent,buttonface 2em) !important;");
       expandedfromRow.style.flex = "auto";
       expandedtoRow.setAttribute("style", "display: none;");
       expandedccRow.setAttribute("style", "display: none;");
@@ -269,6 +270,7 @@ function install(window) {
   }
 
   function setCompactHeaders() {
+    messageHeader.style.overflow = "hidden";
     headerSenderToolbarContainer.style.flexWrap = "unset";
     if (messageHeader.getAttribute("singleline") == "singleline") messageHeader.style.paddingBottom = "3px";
     else messageHeader.style.paddingBottom = "6px";
@@ -280,7 +282,7 @@ function install(window) {
     for (i = 1; i < messageHeader.childElementCount; i++) {
       messageHeader.children[i].setAttribute("persist", "style");
       messageHeader.children[i].setAttribute("style", "display: none;");
-      if (messageHeader.getAttribute("singleline") != "singleline") headerSubjectSecurityContainer.setAttribute("style", "height: 1.3em;");
+      if (messageHeader.getAttribute("singleline") != "singleline") headerSubjectSecurityContainer.setAttribute("style", "height: unset;");
     }
     if (expandedsubjectBox) expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 1; max-width: fit-content;");
     if (messageHeader.getAttribute("singleline") == "singleline") singleLine();
@@ -311,6 +313,8 @@ function install(window) {
   }
 
   function setDefaultHeaders() {
+    messageHeader.style.overflowX = "hidden";
+    messageHeader.style.overflowY = "auto";
     headerSenderToolbarContainer.style.flexWrap = "wrap";
     messageHeader.style.paddingBottom = "0px";
     compactHeadersButton.setAttribute("class", "button button-flat");
@@ -321,7 +325,7 @@ function install(window) {
     for (i = 1; i < messageHeader.childElementCount; i++) {
       messageHeader.children[i].setAttribute("persist", "style");
       messageHeader.children[i].removeAttribute("style");
-      headerSubjectSecurityContainer.setAttribute("style", "height: 1.3em;");
+      headerSubjectSecurityContainer.setAttribute("style", "height: unset;");
     }
     if (expandedsubjectBox) expandedsubjectBox.setAttribute("style", "overflow-x: hidden; -webkit-line-clamp: 3; max-width: fit-content;");
     doubleLine();
@@ -453,7 +457,7 @@ function install(window) {
       dateLabel.insertAdjacentElement("beforebegin", expandedtagsBox);
       dateLabel.style.marginLeft = "0px";
       expandedtagsBox.style.marginLeft = "auto";
-      expandedtagsBox.style.maxHeight = "1.6em";
+      expandedtagsBox.style.marginBlock = "-3px -1px";
       expandedsubjectBox.style.flexBasis = "33%";
     } else if ((messageHeader.getAttribute("compact") != "compact") ||
       (messageHeader.getAttribute("singleline") == "singleline") ||
@@ -461,7 +465,7 @@ function install(window) {
       expandedtagsRow.insertAdjacentElement("beforeend", expandedtagsBox);
       dateLabel.style.marginLeft = "auto";
       expandedtagsBox.style.marginLeft = "0px";
-      expandedtagsBox.style.maxHeight = "none";
+      expandedtagsBox.style.marginBlock = "unset";
       expandedsubjectBox.style.flexBasis = "unset";
     }
   }

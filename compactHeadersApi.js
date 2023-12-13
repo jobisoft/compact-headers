@@ -16,7 +16,6 @@ function getMessageWindow(nativeTab) {
 }
 
 function install(window) {
-    console.debug("Compact Headers enabled");
   let { document } = window;
 
   let msgHeaderView = document.getElementById("msgHeaderView");
@@ -502,6 +501,8 @@ function install(window) {
   checkToCcHeaders();
   checkOthers();
   checkHeaders();
+
+  console.debug("Compact Headers enabled");
 }
 
 function uninstall(window) {

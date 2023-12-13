@@ -16,6 +16,7 @@ function getMessageWindow(nativeTab) {
 }
 
 function install(window) {
+    console.debug("Compact Headers enabled");
   let { document } = window;
 
   let msgHeaderView = document.getElementById("msgHeaderView");
@@ -99,7 +100,7 @@ function install(window) {
   compactHeadersSeparator4.id = "compactHeadersSeparator4";
 
   let expandedfromRow = document.getElementById("expandedfromRow");
-  expandedfromRow.setAttribute("style", "align-items: center; margin-block: -6px; padding-block: 6px; margin-inline: -2px auto; overflow: hidden; min-width: fit-content;");
+  expandedfromRow.setAttribute("style", "align-items: center; margin-block: -6px; padding-block: 6px; margin-inline: -2px auto; overflow: hidden; min-width: min-content;");
   expandedfromRow.insertAdjacentElement("afterbegin", compactHeadersBox);
   let expandedfromBox = document.getElementById("expandedfromBox");
   expandedfromBox.setAttribute("style", "margin-block: 1px; overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
@@ -192,7 +193,6 @@ function install(window) {
     headerViewToolbox.setAttribute("style", "display: none;");
     if (messageHeader.getAttribute("compact") == "compact") {
       headerSenderToolbarContainer.style.marginBottom = "unset";
-      headerSenderToolbarContainer.style.alignItems = "center";
       expandedfromRow.insertAdjacentElement("beforebegin", headerSubjectSecurityContainer);
       headerSubjectSecurityContainer.setAttribute("style", "height: 1.3em; margin-block: -1em; margin-inline-start: -2em;\
         padding-inline-start: 2em; z-index: 1; background: linear-gradient(to right,transparent,buttonface 2em) !important;");
@@ -207,9 +207,10 @@ function install(window) {
 
   function doubleLine() {
     msgHeaderView.removeAttribute("style");
-    headerViewToolbox.setAttribute("style", "display: flex;");
+    headerViewToolbox.setAttribute("style", "display: flex; align-self: auto;");
     headerSenderToolbarContainer.insertAdjacentElement("afterend", headerSubjectSecurityContainer);
     headerSenderToolbarContainer.style.marginBottom = "-3px";
+    headerSenderToolbarContainer.style.flexDirection = "row-reverse";
     expandedfromRow.style.flex = "inherit";
     expandedtoRow.removeAttribute("style");
     expandedccRow.removeAttribute("style");
@@ -272,6 +273,7 @@ function install(window) {
   function setCompactHeaders() {
     messageHeader.style.overflow = "hidden";
     headerSenderToolbarContainer.style.flexWrap = "unset";
+    headerSenderToolbarContainer.style.alignItems = "center";
     if (messageHeader.getAttribute("singleline") == "singleline") messageHeader.style.paddingBottom = "3px";
     else messageHeader.style.paddingBottom = "6px";
     compactHeadersButton.setAttribute("class", "button button-flat");
@@ -289,6 +291,7 @@ function install(window) {
     else doubleLine();
 
     headerViewToolbox.style.flex = "auto";
+    headerViewToolbox.style.alignSelf = "auto";
     expandedfromRow.insertAdjacentElement("beforebegin", expandedcontentBaseRow);
     expandedcontentBaseRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
       margin-block: -6px; padding-block: 6px; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
@@ -316,6 +319,7 @@ function install(window) {
     messageHeader.style.overflowX = "hidden";
     messageHeader.style.overflowY = "auto";
     headerSenderToolbarContainer.style.flexWrap = "wrap";
+    headerSenderToolbarContainer.style.alignItems = "center";
     messageHeader.style.paddingBottom = "0px";
     compactHeadersButton.setAttribute("class", "button button-flat");
     compactHeadersButton.image = "chrome://messenger/skin/overrides/arrow-down-12.svg";

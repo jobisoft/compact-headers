@@ -11,8 +11,10 @@ function getMessageWindow(nativeTab) {
     return nativeTab.chromeBrowser.contentWindow.messageBrowser.contentWindow
   } else if (nativeTab.mode && nativeTab.mode.name == "mailMessageTab") {
     return nativeTab.chromeBrowser.contentWindow;
+  } else {
+    console.debug("No nativeTab available");
+    return null;
   }
-  return null;
 }
 
 function install(window) {
@@ -631,7 +633,7 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
             // Load into the freshly opened messageBrowser window.
             try {
               install(messageBrowserWindow);
-            } catch (e) { }
+            } catch (e) { console.debug("No messageBrowserWindow available"); }
           }
         },
       },

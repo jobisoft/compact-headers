@@ -3,7 +3,7 @@ Changelog for Compact Headers
 5.2
 Realigned From: header.
 Fixed long subject line wrapping.
-Fixed some unwanted scrolling in single compact mode on Windows.
+Fixed scrolling in single compact mode on Windows.
 Fixed header wrapping in double line compact mode.
 
 5.1

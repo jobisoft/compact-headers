@@ -12,7 +12,6 @@ function getMessageWindow(nativeTab) {
   } else if (nativeTab.mode && nativeTab.mode.name == "mailMessageTab") {
     return nativeTab.chromeBrowser.contentWindow;
   } else {
-    console.debug("No nativeTab available");
     return null;
   }
 }
@@ -503,8 +502,6 @@ function install(window) {
   checkToCcHeaders();
   checkOthers();
   checkHeaders();
-
-  console.debug("Compact Headers enabled");
 }
 
 function uninstall(window) {
@@ -633,7 +630,7 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
             // Load into the freshly opened messageBrowser window.
             try {
               install(messageBrowserWindow);
-            } catch (e) { console.debug("No messageBrowserWindow available"); }
+            } catch (e) {}
           }
         },
       },
@@ -660,7 +657,5 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
         uninstall(messageBrowserWindow);
       }
     }
-
-    console.debug("Compact Headers disabled");
   }
 };

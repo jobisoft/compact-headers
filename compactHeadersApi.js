@@ -320,6 +320,7 @@ function install(window) {
     messageHeader.style.overflowY = "auto";
     headerSenderToolbarContainer.style.flexWrap = "wrap";
     headerSenderToolbarContainer.style.alignItems = "center";
+    messageHeader.style.paddingTop = "3px";
     messageHeader.style.paddingBottom = "0px";
     compactHeadersButton.setAttribute("class", "button button-flat");
     compactHeadersButton.image = "chrome://messenger/skin/overrides/arrow-down-12.svg";

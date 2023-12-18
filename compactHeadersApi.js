@@ -174,8 +174,6 @@ function install(window) {
   let singleMessage = document.getElementById("singleMessage");
   if (singleMessage) singleMessage.setAttribute("style", "background-color: buttonface !important");
 
-  let mainPopupSet = window.document.getElementById("mainPopupSet")
-
   compactHeadersPopup.append(compactHeadersSingleLine);
   compactHeadersPopup.append(compactHeadersSeparator3);
   compactHeadersPopup.append(compactHeadersMoveToHeader);
@@ -321,6 +319,7 @@ function install(window) {
     headerSenderToolbarContainer.style.flexWrap = "wrap";
     headerSenderToolbarContainer.style.alignItems = "center";
     messageHeader.style.paddingTop = "3px";
+    messageHeader.style.paddingRight = "3px";
     messageHeader.style.paddingBottom = "0px";
     compactHeadersButton.setAttribute("class", "button button-flat");
     compactHeadersButton.image = "chrome://messenger/skin/overrides/arrow-down-12.svg";

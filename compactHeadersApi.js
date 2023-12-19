@@ -21,6 +21,8 @@ function install(window) {
 
   let msgHeaderView = document.getElementById("msgHeaderView");
   let messageHeader = document.getElementById("messageHeader");
+  messageHeader.style.paddingTop = "3px";
+  messageHeader.style.paddingRight = "3px";
   let messagepanebox = document.getElementById("messagepanebox");
 
   let headerViewToolbox = document.getElementById("header-view-toolbox");
@@ -318,8 +320,6 @@ function install(window) {
     messageHeader.style.overflowY = "auto";
     headerSenderToolbarContainer.style.flexWrap = "wrap";
     headerSenderToolbarContainer.style.alignItems = "center";
-    messageHeader.style.paddingTop = "3px";
-    messageHeader.style.paddingRight = "3px";
     messageHeader.style.paddingBottom = "0px";
     compactHeadersButton.setAttribute("class", "button button-flat");
     compactHeadersButton.image = "chrome://messenger/skin/overrides/arrow-down-12.svg";
@@ -356,7 +356,7 @@ function install(window) {
         break;
       default: messageHeader.setAttribute("compact", "compact");
     }
-    window.ReloadMessage();
+    //window.ReloadMessage();
     checkHeaders();
   }
 
@@ -638,7 +638,10 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
   }
 
   onShutdown(isAppShutdown) {
-    if (isAppShutdown) return;
+    if (isAppShutdown) {
+      //Services.prefs.setIntPref("rss.show.summary", 1);
+      return;
+    }
 
     // Uninstall from any messageBrowser in any tab in any mail:3pane window.
     for (let window of Services.wm.getEnumerator("mail:3pane")) {

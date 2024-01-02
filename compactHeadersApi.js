@@ -373,7 +373,7 @@ function install(window) {
   }
 
   function showToolbar() {
-    headerViewToolbar.setAttribute("style", "margin: -1px -1em -1px -2em; padding: 0px 1em 0px 2.2em; position: relative; z-index: 3;\
+    headerViewToolbar.setAttribute("style", "margin: -1px -1em -1px -2em; padding: 4px 1em 5px 2.2em; position: relative; z-index: 3;\
       background: linear-gradient(to right,transparent,buttonface 2em) !important; min-width: max-content; min-height: 1.8em;");
   }
 
@@ -639,7 +639,8 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
 
   onShutdown(isAppShutdown) {
     if (isAppShutdown) {
-      //Services.prefs.setIntPref("rss.show.summary", 1);
+      // Show rss summary on startup to work around bug 1871733.
+      Services.prefs.setIntPref("rss.show.summary", 1);
       return;
     }
 

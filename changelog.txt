@@ -1,12 +1,15 @@
 Changelog for Compact Headers
 
+5.3
+Fixed Message Security button border.
+
 5.2
 Realigned From: header.
 Fixed long subject line wrapping.
 Fixed scrolling in single line compact mode on Windows.
 Fixed header wrapping in double line compact mode.
 Removed forced reloading.
-Set maximum version to Thunderbird 123.0.
+Set maximum version to Thunderbird 123.*.
 As a workaround for bug 187173 shows RSS messages as summary on Thunderbird startup.
 
 5.1

@@ -148,7 +148,7 @@ function install(window) {
   let expandedtagsRow = document.getElementById("expandedtagsRow");
 
   let encryptionTechBtn = document.getElementById("encryptionTechBtn");
-  if (encryptionTechBtn) encryptionTechBtn.setAttribute("style", "margin-block: -4px; z-index: 3;");
+  if (encryptionTechBtn) encryptionTechBtn.setAttribute("style", "margin-block: -4px; z-index: 3; padding-top: 0px !important");
 
   let newsgroupsHeading = document.getElementById("newsgroupsHeading");
   if (newsgroupsHeading) newsgroupsHeading.setAttribute("style", "margin-block: auto;");

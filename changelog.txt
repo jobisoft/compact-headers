@@ -1,7 +1,9 @@
 Changelog for Compact Headers
 
 5.3
-Fixed Message Security button border.
+Fixed Message Security (S/MIME, OpenPGP) button border.
+Fixed header wrapping in single line compact mode.
+Set maximum version to Thunderbird 124.*.
 
 5.2
 Realigned From: header.

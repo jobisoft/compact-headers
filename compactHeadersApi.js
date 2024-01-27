@@ -102,7 +102,7 @@ function install(window) {
   compactHeadersSeparator4.id = "compactHeadersSeparator4";
 
   let expandedfromRow = document.getElementById("expandedfromRow");
-  expandedfromRow.setAttribute("style", "align-items: center; margin-block: -6px; padding-block: 6px; margin-inline: -2px auto; overflow: hidden; min-width: min-content;");
+  expandedfromRow.setAttribute("style", "align-items: center; margin-block: -1em; padding-block: 1em; margin-inline: -2px auto; overflow: hidden; min-width: min-content;");
   expandedfromRow.insertAdjacentElement("afterbegin", compactHeadersBox);
   let expandedfromBox = document.getElementById("expandedfromBox");
   expandedfromBox.setAttribute("style", "margin-block: 1px; overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
@@ -130,7 +130,7 @@ function install(window) {
   let expandedcontentBaseLabel = document.getElementById("expandedcontent-baseLabel");
 
   let expandedsubjectRow = document.getElementById("expandedsubjectRow");
-  if (expandedsubjectRow) expandedsubjectRow.setAttribute("style", "overflow: hidden; margin-block: -1px 0;");
+  if (expandedsubjectRow) expandedsubjectRow.setAttribute("style", "overflow: hidden; margin-block: -1px 0px; z-index: 2;");
 
   let expandedsubjectBox = document.getElementById("expandedsubjectBox");
   if (expandedsubjectBox) expandedsubjectBox.addEventListener("contextmenu", stopContext, true);
@@ -155,6 +155,7 @@ function install(window) {
 
   let headerSenderToolbarContainer = document.getElementById("headerSenderToolbarContainer");
   if (headerSenderToolbarContainer) headerSenderToolbarContainer.style.display = "flex";
+  if (headerSenderToolbarContainer) headerSenderToolbarContainer.style.flexDirection = "row-reverse";
   if (headerSenderToolbarContainer) headerSenderToolbarContainer.style.minHeight = "var(--recipient-avatar-size)";
   let headerSubjectSecurityContainer = document.getElementById("headerSubjectSecurityContainer");
 
@@ -194,8 +195,8 @@ function install(window) {
     if (messageHeader.getAttribute("compact") == "compact") {
       headerSenderToolbarContainer.style.marginBottom = "unset";
       expandedfromRow.insertAdjacentElement("beforebegin", headerSubjectSecurityContainer);
-      headerSubjectSecurityContainer.setAttribute("style", "height: 1.3em; margin-block: -1em; margin-inline-start: -2em;\
-        padding-inline-start: 2em; z-index: 1; background: linear-gradient(to right,transparent,buttonface 2em) !important;");
+      headerSubjectSecurityContainer.setAttribute("style", "height: 1.3em; z-index: 1; margin-block: -2em; margin-inline-start: -2em;\
+        padding-block: 1em; padding-inline-start: 2em; background: linear-gradient(to right,transparent,buttonface 2em) !important;");
       expandedfromRow.style.flex = "auto";
       expandedtoRow.setAttribute("style", "display: none;");
       expandedccRow.setAttribute("style", "display: none;");
@@ -210,7 +211,6 @@ function install(window) {
     headerViewToolbox.setAttribute("style", "display: flex; align-self: auto;");
     headerSenderToolbarContainer.insertAdjacentElement("afterend", headerSubjectSecurityContainer);
     headerSenderToolbarContainer.style.marginBottom = "-3px";
-    headerSenderToolbarContainer.style.flexDirection = "row-reverse";
     expandedfromRow.style.flex = "inherit";
     expandedtoRow.removeAttribute("style");
     expandedccRow.removeAttribute("style");
@@ -294,15 +294,15 @@ function install(window) {
     headerViewToolbox.style.alignSelf = "auto";
     expandedfromRow.insertAdjacentElement("beforebegin", expandedcontentBaseRow);
     expandedcontentBaseRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
-      margin-block: -6px; padding-block: 6px; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
+      margin-block: -1em; padding-block: 1em; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
     expandedcontentBaseBox.setAttribute("style", "max-block-size: 1.5em; min-height:18px; overflow: hidden; min-width: 250%; max-height: 1.5em; margin-inline-end: -99em;");
     expandedfromRow.insertAdjacentElement("beforebegin", expandedccRow);
     expandedccRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
-      margin-block: -6px; padding-block: 6px; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
+      margin-block: -1em; padding-block: 1em; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
     expandedccBox.setAttribute("style", "max-block-size: 1.5em; min-height:20px; overflow: hidden; min-width: 250%; max-height: 1.5em; margin-inline-end: 1.6em;");
     expandedfromRow.insertAdjacentElement("beforebegin", expandedtoRow);
     expandedtoRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
-      margin-block: -6px; padding-block: 6px; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 1; flex: inherit;");
+      margin-block: -1em; padding-block: 1em; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 1; flex: inherit;");
     expandedtoBox.setAttribute("style", "max-block-size: 1.5em; min-height:20px; overflow: hidden; min-width: 250%; max-height: 1.5em; margin-inline-end: 1.6em;");
     if ((messageHeader.getAttribute("movecontentbaseheader") != "movecontentbaseheader") || (messageHeader.getAttribute("singleline") == "singleline")) {
       expandedcontentBaseRow.style.display = "none";
@@ -373,7 +373,7 @@ function install(window) {
   }
 
   function showToolbar() {
-    headerViewToolbar.setAttribute("style", "margin: -1px -1em -1px -2em; padding: 4px 1em 5px 2.2em; position: relative; z-index: 3;\
+    headerViewToolbar.setAttribute("style", "margin: -4px -1em -3px -2em; padding: 7px 1em 7px 2.2em; position: relative; z-index: 3;\
       background: linear-gradient(to right,transparent,buttonface 2em) !important; min-width: max-content; min-height: 1.8em;");
   }
 
@@ -639,7 +639,7 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
 
   onShutdown(isAppShutdown) {
     if (isAppShutdown) {
-      // Show rss summary on startup to work around bug 1871733.
+      // Always show rss summary on startup to work around bug 1871733.
       Services.prefs.setIntPref("rss.show.summary", 1);
       return;
     }

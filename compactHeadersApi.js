@@ -294,7 +294,6 @@ function install(window) {
       messageHeader.children[i].setAttribute("style", "display: none;");
       if (messageHeader.getAttribute("singleline") != "singleline") headerSubjectSecurityContainer.setAttribute("style", "height: unset;");
     }
-
     if (expandedsubjectBox) {
       if ((messageHeader.getAttribute("showfullsubjectheader") != "showfullsubjectheader") || (messageHeader.getAttribute("singleline") == "singleline")) {
         expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 1; max-width: fit-content;");
@@ -302,7 +301,6 @@ function install(window) {
         expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 3; max-width: fit-content;");
       }
     }
-
     if (messageHeader.getAttribute("singleline") == "singleline") singleLine();
     else doubleLine();
 

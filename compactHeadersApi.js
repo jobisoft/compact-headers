@@ -67,6 +67,13 @@ function install(window) {
   compactHeadersMoveContentBaseheader.setAttribute("tooltiptext", "Shows the Website from RSS messages on the first line in double line mode");
   compactHeadersMoveContentBaseheader.addEventListener("command", () => toggleContentBaseHeader());
 
+  let compactHeadersShowFullSubjectHeader = document.createXULElement("menuitem");
+  compactHeadersShowFullSubjectHeader.id = "compactHeadersShowFullSubjectHeader";
+  compactHeadersShowFullSubjectHeader.setAttribute("type", "checkbox");
+  compactHeadersShowFullSubjectHeader.setAttribute("label", "Show Full Subject");
+  compactHeadersShowFullSubjectHeader.setAttribute("tooltiptext", "Do not truncate Subject header in double line mode");
+  compactHeadersShowFullSubjectHeader.addEventListener("command", () => toggleFullSubjectHeader());
+
   let compactHeadersmovetags = document.createXULElement("menuitem");
   compactHeadersmovetags.id = "compactHeadersmovetags";
   compactHeadersmovetags.setAttribute("type", "checkbox");
@@ -182,6 +189,7 @@ function install(window) {
   compactHeadersPopup.append(compactHeadersMoveToHeader);
   compactHeadersPopup.append(compactHeadersMoveCcHeader);
   compactHeadersPopup.append(compactHeadersMoveContentBaseheader);
+  compactHeadersPopup.append(compactHeadersShowFullSubjectHeader);
   compactHeadersPopup.append(compactHeadersmovetags);
   compactHeadersPopup.append(compactHeadersSeparator4);
   compactHeadersPopup.append(compactHeadersHideToolbar);
@@ -286,7 +294,15 @@ function install(window) {
       messageHeader.children[i].setAttribute("style", "display: none;");
       if (messageHeader.getAttribute("singleline") != "singleline") headerSubjectSecurityContainer.setAttribute("style", "height: unset;");
     }
-    if (expandedsubjectBox) expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 1; max-width: fit-content;");
+
+    if (expandedsubjectBox) {
+      if ((messageHeader.getAttribute("showfullsubjectheader") != "showfullsubjectheader") || (messageHeader.getAttribute("singleline") == "singleline")) {
+        expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 1; max-width: fit-content;");
+      } else {
+        expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 3; max-width: fit-content;");
+      }
+    }
+
     if (messageHeader.getAttribute("singleline") == "singleline") singleLine();
     else doubleLine();
 
@@ -377,6 +393,15 @@ function install(window) {
       background: linear-gradient(to right,transparent,buttonface 2em) !important; min-width: max-content; min-height: 1.8em;");
   }
 
+  function toggleFullSubjectHeader() {
+    if (messageHeader.getAttribute("showfullsubjectheader") == "showfullsubjectheader") {
+      messageHeader.removeAttribute("showfullsubjectheader");
+    } else {
+      messageHeader.setAttribute("showfullsubjectheader", "showfullsubjectheader");
+    }
+    checkHeaders();
+  }
+
   function toggleToHeader() {
     if (messageHeader.getAttribute("movetoheader") == "movetoheader") {
       messageHeader.removeAttribute("movetoheader");
@@ -414,6 +439,11 @@ function install(window) {
   }
 
   function checkToCcHeaders() {
+    if (messageHeader.getAttribute("showfullsubjectheader") == "showfullsubjectheader") {
+      compactHeadersShowFullSubjectHeader.setAttribute("checked", true);
+    } else {
+      compactHeadersShowFullSubjectHeader.setAttribute("checked", false);
+    }
     if (messageHeader.getAttribute("movetoheader") == "movetoheader") {
       compactHeadersMoveToHeader.setAttribute("checked", true);
     } else {

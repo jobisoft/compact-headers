@@ -117,8 +117,7 @@ function install(window) {
   expandedfromBox.firstChild.nextSibling.style.minWidth = "inherit";
   let expandedfromLabel = document.getElementById("expandedfromLabel");
   if (expandedfromLabel) expandedfromLabel.style.width = "4em";
-  if (expandedfromLabel) expandedfromLabel.style.marginBlock = "1px";
-  if (expandedfromLabel) expandedfromLabel.style.marginInline = "-2px";
+  if (expandedfromLabel) expandedfromLabel.style.margin = "1px -2px";
 
   let expandedtoRow = document.getElementById("expandedtoRow");
   let expandedtoBox = document.getElementById("expandedtoBox");

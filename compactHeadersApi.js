@@ -112,7 +112,7 @@ function install(window) {
   expandedfromRow.setAttribute("style", "align-items: center; margin-block: -1em; padding-block: 1em; margin-inline: -2px auto; overflow: hidden; min-width: min-content;");
   expandedfromRow.insertAdjacentElement("afterbegin", compactHeadersBox);
   let expandedfromBox = document.getElementById("expandedfromBox");
-  expandedfromBox.setAttribute("style", "margin-block: 1px; overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
+  expandedfromBox.setAttribute("style", "margin-block: 1px; overflow: hidden; min-width: 250%; margin-inline: -2px 1.6em; padding-inline-start: 2px;");
   expandedfromBox.firstChild.nextSibling.style.flexWrap = "nowrap";
   expandedfromBox.firstChild.nextSibling.style.minWidth = "inherit";
   let expandedfromLabel = document.getElementById("expandedfromLabel");
@@ -193,10 +193,7 @@ function install(window) {
   compactHeadersPopup.append(compactHeadersmovetags);
   compactHeadersPopup.append(compactHeadersSeparator4);
   compactHeadersPopup.append(compactHeadersHideToolbar);
-  if (msgHeaderView.lastChild.id == "compactHeadersPopup") {
-  } else {
-    msgHeaderView.append(compactHeadersPopup);
-  }
+  if (msgHeaderView.lastChild.id != "compactHeadersPopup") msgHeaderView.append(compactHeadersPopup);
 
   function singleLine() {
     headerViewToolbox.setAttribute("style", "display: none;");
@@ -205,7 +202,7 @@ function install(window) {
       expandedfromRow.insertAdjacentElement("beforebegin", headerSubjectSecurityContainer);
       headerSubjectSecurityContainer.setAttribute("style", "height: 1.3em; z-index: 1; margin-block: -2em; margin-inline-start: -2em;\
         padding-block: 1em; padding-inline-start: 2em; background: linear-gradient(to right,transparent,buttonface 2em) !important;");
-      expandedfromRow.style.flex = "auto";
+      expandedfromRow.style.flex = "1 0 auto";
       expandedtoRow.setAttribute("style", "display: none;");
       expandedccRow.setAttribute("style", "display: none;");
       expandedcontentBaseRow.setAttribute("style", "display: none;");
@@ -294,30 +291,28 @@ function install(window) {
       messageHeader.children[i].setAttribute("style", "display: none;");
       if (messageHeader.getAttribute("singleline") != "singleline") headerSubjectSecurityContainer.setAttribute("style", "height: unset;");
     }
-    if (expandedsubjectBox) {
-      if ((messageHeader.getAttribute("showfullsubjectheader") != "showfullsubjectheader") || (messageHeader.getAttribute("singleline") == "singleline")) {
-        expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 1; max-width: fit-content;");
-      } else {
-        expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 3; max-width: fit-content;");
-      }
-    }
+    if (expandedsubjectBox) expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 1; max-width: fit-content;");
+    if ((messageHeader.getAttribute("showfullsubjectheader") == "showfullsubjectheader") && (messageHeader.getAttribute("singleline") != "singleline"))
+      expandedsubjectBox.setAttribute("style", "overflow: hidden; -webkit-line-clamp: 3; max-width: fit-content;");
     if (messageHeader.getAttribute("singleline") == "singleline") singleLine();
     else doubleLine();
 
     headerViewToolbox.style.flex = "auto";
     headerViewToolbox.style.alignSelf = "auto";
+
     expandedfromRow.insertAdjacentElement("beforebegin", expandedcontentBaseRow);
     expandedcontentBaseRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
       margin-block: -1em; padding-block: 1em; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
-    expandedcontentBaseBox.setAttribute("style", "max-block-size: 1.5em; min-height:18px; overflow: hidden; min-width: 250%; max-height: 1.5em; margin-inline-end: -99em;");
+    expandedcontentBaseBox.setAttribute("style", "min-height:18px; overflow: hidden; min-width: 250%; margin-inline-end: -99em;");
     expandedfromRow.insertAdjacentElement("beforebegin", expandedccRow);
     expandedccRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
       margin-block: -1em; padding-block: 1em; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 2; flex: inherit;");
-    expandedccBox.setAttribute("style", "max-block-size: 1.5em; min-height:20px; overflow: hidden; min-width: 250%; max-height: 1.5em; margin-inline-end: 1.6em;");
+    expandedccBox.setAttribute("style", "min-height:20px; overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
     expandedfromRow.insertAdjacentElement("beforebegin", expandedtoRow);
     expandedtoRow.setAttribute("style", "background: linear-gradient(to right,transparent,buttonface 2em) !important;\
       margin-block: -1em; padding-block: 1em; margin-inline-start: -2em; padding-inline-start: 2.4em; z-index: 1; flex: inherit;");
-    expandedtoBox.setAttribute("style", "max-block-size: 1.5em; min-height:20px; overflow: hidden; min-width: 250%; max-height: 1.5em; margin-inline-end: 1.6em;");
+    expandedtoBox.setAttribute("style", "min-height:20px; overflow: hidden; min-width: 250%; margin-inline-end: 1.6em;");
+
     if ((messageHeader.getAttribute("movecontentbaseheader") != "movecontentbaseheader") || (messageHeader.getAttribute("singleline") == "singleline")) {
       expandedcontentBaseRow.style.display = "none";
     }
@@ -370,7 +365,7 @@ function install(window) {
         break;
       default: messageHeader.setAttribute("compact", "compact");
     }
-    //window.ReloadMessage();
+    window.ReloadMessage();
     checkHeaders();
   }
 
@@ -389,15 +384,6 @@ function install(window) {
   function showToolbar() {
     headerViewToolbar.setAttribute("style", "margin: -4px -1em -3px -2em; padding: 7px 1em 7px 2.2em; position: relative; z-index: 3;\
       background: linear-gradient(to right,transparent,buttonface 2em) !important; min-width: max-content; min-height: 1.8em;");
-  }
-
-  function toggleFullSubjectHeader() {
-    if (messageHeader.getAttribute("showfullsubjectheader") == "showfullsubjectheader") {
-      messageHeader.removeAttribute("showfullsubjectheader");
-    } else {
-      messageHeader.setAttribute("showfullsubjectheader", "showfullsubjectheader");
-    }
-    checkHeaders();
   }
 
   function toggleToHeader() {
@@ -427,6 +413,15 @@ function install(window) {
     checkHeaders();
   }
 
+  function toggleFullSubjectHeader() {
+    if (messageHeader.getAttribute("showfullsubjectheader") == "showfullsubjectheader") {
+      messageHeader.removeAttribute("showfullsubjectheader");
+    } else {
+      messageHeader.setAttribute("showfullsubjectheader", "showfullsubjectheader");
+    }
+    checkHeaders();
+  }
+
   function toggleTags() {
     if (messageHeader.getAttribute("movetags") == "movetags") {
       messageHeader.removeAttribute("movetags");
@@ -437,11 +432,6 @@ function install(window) {
   }
 
   function checkToCcHeaders() {
-    if (messageHeader.getAttribute("showfullsubjectheader") == "showfullsubjectheader") {
-      compactHeadersShowFullSubjectHeader.setAttribute("checked", true);
-    } else {
-      compactHeadersShowFullSubjectHeader.setAttribute("checked", false);
-    }
     if (messageHeader.getAttribute("movetoheader") == "movetoheader") {
       compactHeadersMoveToHeader.setAttribute("checked", true);
     } else {
@@ -456,6 +446,11 @@ function install(window) {
       compactHeadersMoveContentBaseheader.setAttribute("checked", true);
     } else {
       compactHeadersMoveContentBaseheader.setAttribute("checked", false);
+    }
+    if (messageHeader.getAttribute("showfullsubjectheader") == "showfullsubjectheader") {
+      compactHeadersShowFullSubjectHeader.setAttribute("checked", true);
+    } else {
+      compactHeadersShowFullSubjectHeader.setAttribute("checked", false);
     }
     if (messageHeader.getAttribute("movetags") == "movetags") {
       compactHeadersmovetags.setAttribute("checked", true);
@@ -489,6 +484,7 @@ function install(window) {
       dateLabel.insertAdjacentElement("beforebegin", expandedtagsBox);
       dateLabel.style.marginLeft = "0px";
       expandedtagsBox.style.marginLeft = "auto";
+      expandedtagsBox.style.paddingLeft = "8px";
       expandedtagsBox.style.marginBlock = "-3px -1px";
       expandedsubjectBox.style.flexBasis = "33%";
     } else if ((messageHeader.getAttribute("compact") != "compact") ||
@@ -496,7 +492,8 @@ function install(window) {
       (messageHeader.getAttribute("movetags") != "movetags")) {
       expandedtagsRow.insertAdjacentElement("beforeend", expandedtagsBox);
       dateLabel.style.marginLeft = "auto";
-      expandedtagsBox.style.marginLeft = "0px";
+      expandedtagsBox.style.marginLeft = "2px";
+      expandedtagsBox.style.paddingLeft = "0px";
       expandedtagsBox.style.marginBlock = "unset";
       expandedsubjectBox.style.flexBasis = "unset";
     }
@@ -645,6 +642,7 @@ function uninstall(window) {
   let expandedtagsRow = document.getElementById("expandedtagsRow");
   if (expandedtagsRow) expandedtagsRow.insertAdjacentElement("afterbegin", expandedtagsBox);
   if (expandedtagsBox) expandedtagsBox.style.marginLeft = "0px";
+  if (expandedtagsBox) expandedtagsBox.style.paddingLeft = "0px";
 }
 
 var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {

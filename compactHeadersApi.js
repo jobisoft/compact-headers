@@ -194,6 +194,55 @@ function install(window) {
   compactHeadersPopup.append(compactHeadersHideToolbar);
   if (msgHeaderView.lastChild.id != "compactHeadersPopup") msgHeaderView.append(compactHeadersPopup);
 
+  function patchRecipientClass() {
+    window.customElements.whenDefined("header-recipient").then(classHeaderRecipient => {
+      if (!classHeaderRecipient.prototype.originalUpdateRecipient) {
+        classHeaderRecipient.prototype.originalUpdateRecipient = classHeaderRecipient.prototype.updateRecipient;
+        classHeaderRecipient.prototype.updateRecipient = function() {
+          this.originalUpdateRecipient();
+
+          if (this.dataset.headerName == "to" || this.dataset.headerName == "cc") {
+            this.nameLine.textContent = this.displayName;
+            this.addressLine.textContent = this.emailAddress;
+            if (this.displayName) {
+              this.classList.add("has-display-name");
+            } else {
+              this.classList.remove("has-display-name");
+            }
+          }
+        }
+        // Call updateRecipient for existing recipients before patched
+        for (let recipient of expandedtoBox.querySelectorAll('li[is="header-recipient"]')) {
+          recipient.updateRecipient();
+        }
+        for (let recipient of expandedccBox.querySelectorAll('li[is="header-recipient"]')) {
+          recipient.updateRecipient();
+        }
+      }
+    });
+  }
+
+  function createStyle() {
+    if (!document.getElementById("compactHeadersStyle")) {
+      let style = document.createElement('style');
+      style.id = "compactHeadersStyle";
+      style.textContent = `
+#messageHeader[compact="compact"].message-header-show-sender-full-address :is(#expandedtoLabel, #toHeading, #expandedccLabel, #ccHeading) {
+  align-self: center;
+}
+
+#messageHeader[compact="compact"].message-header-show-sender-full-address .has-display-name .recipient-single-line {
+  display: none;
+}
+
+#messageHeader[compact="compact"].message-header-show-sender-full-address .has-display-name .recipient-multi-line {
+  display: inline-flex;
+}
+`;
+      document.head.append(style);
+    }
+  }
+
   function singleLine() {
     headerViewToolbox.setAttribute("style", "display: none;");
     if (messageHeader.getAttribute("compact") == "compact") {
@@ -521,6 +570,8 @@ function install(window) {
     checkHeaders();
   }
 
+  patchRecipientClass();
+  createStyle();
   checkLines();
   markToolbar();
   checkToCcHeaders();
@@ -642,6 +693,16 @@ function uninstall(window) {
   if (expandedtagsRow) expandedtagsRow.insertAdjacentElement("afterbegin", expandedtagsBox);
   if (expandedtagsBox) expandedtagsBox.style.marginLeft = "0px";
   if (expandedtagsBox) expandedtagsBox.style.paddingLeft = "0px";
+
+  let compactHeadersStyle = document.getElementById("compactHeadersStyle");
+  if (compactHeadersStyle) document.head.removeChild(compactHeadersStyle);
+
+  window.customElements.whenDefined("header-recipient").then(classHeaderRecipient => {
+    if (classHeaderRecipient.prototype.originalUpdateRecipient) {
+      classHeaderRecipient.prototype.updateRecipient = classHeaderRecipient.prototype.originalUpdateRecipient;
+      delete classHeaderRecipient.prototype.originalUpdateRecipient;
+    }
+  });
 }
 
 var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {

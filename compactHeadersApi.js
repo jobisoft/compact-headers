@@ -430,7 +430,7 @@ function install(window) {
   }
 
   function showToolbar() {
-    headerViewToolbar.setAttribute("style", "margin: -4px -1em -3px -2em; padding: 7px 1em 7px 2.2em; position: relative; z-index: 3;\
+    headerViewToolbar.setAttribute("style", "margin: -4px -1em -3px -2em; padding: 7px 1em 8px 2.2em; position: relative; z-index: 3;\
       background: linear-gradient(to right,transparent,buttonface 2em) !important; min-width: max-content; min-height: 1.8em;");
   }
 

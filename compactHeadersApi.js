@@ -171,6 +171,9 @@ function install(window) {
   let expandedmessageIdBox = document.getElementById("expandedmessage-idBox");
   if (expandedmessageIdBox) expandedmessageIdBox.addEventListener("contextmenu", stopContext, true);
 
+  let expandedlistIdBox = document.getElementById("expandedlist-idBox");
+  if (expandedlistIdBox) expandedlistIdBox.addEventListener("contextmenu", stopContext, true);
+
   let expandedinReplyToBox = document.getElementById("expandedin-reply-toBox");
   if (expandedinReplyToBox) expandedinReplyToBox.addEventListener("contextmenu", stopContext, true);
 
@@ -626,6 +629,9 @@ function uninstall(window) {
 
   let expandedmessageIdBox = document.getElementById("expandedmessage-idBox");
   if (expandedmessageIdBox) expandedmessageIdBox.removeEventListener("contextmenu", stopContext, true);
+
+  let expandedlistIdBox = document.getElementById("expandedlist-idBox");
+  if (expandedlistIdBox) expandedlistIdBox.removeEventListener("contextmenu", stopContext, true);
 
   let expandednewsgroupsBox = document.getElementById("expandednewsgroupsBox");
   if (expandednewsgroupsBox) expandednewsgroupsBox.removeEventListener("contextmenu", stopContext, true);

@@ -1,4 +1,6 @@
 var { ExtensionCommon } = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
+var { ExtensionParent } = ChromeUtils.import("resource://gre/modules/ExtensionParent.jsm");
+var extension = ExtensionParent.GlobalManager.getExtension("compactHeaders@dillinger");
 
 function stopContext(e) {
   e.preventDefault();
@@ -35,50 +37,50 @@ function install(window) {
   let compactHeadersSingleLine = document.createXULElement("menuitem");
   compactHeadersSingleLine.id = "compactHeadersSingleLine";
   compactHeadersSingleLine.setAttribute("type", "checkbox");
-  compactHeadersSingleLine.setAttribute("label", "Single Line Headers");
-  compactHeadersSingleLine.setAttribute("tooltiptext", "Displays compact headers on a single line");
+  compactHeadersSingleLine.setAttribute("label", extension.localizeMessage("singleLineLabel"));
+  compactHeadersSingleLine.setAttribute("tooltiptext", extension.localizeMessage("singleLineTooltip"));
   compactHeadersSingleLine.addEventListener("command", () => setLines());
 
   let compactHeadersHideToolbar = document.createXULElement("menuitem");
   compactHeadersHideToolbar.id = "compactHeadersHideToolbar";
   compactHeadersHideToolbar.setAttribute("type", "checkbox");
-  compactHeadersHideToolbar.setAttribute("label", "Hide Header Toolbar");
-  compactHeadersHideToolbar.setAttribute("tooltiptext", "Hides the header toolbar");
+  compactHeadersHideToolbar.setAttribute("label", extension.localizeMessage("hideToolbarLabel"));
+  compactHeadersHideToolbar.setAttribute("tooltiptext", extension.localizeMessage("hideToolbarTooltip"));
   compactHeadersHideToolbar.addEventListener("command", () => toggleToolbar());
 
   let compactHeadersMoveToHeader = document.createXULElement("menuitem");
   compactHeadersMoveToHeader.id = "compactHeadersMoveToHeader";
   compactHeadersMoveToHeader.setAttribute("type", "checkbox");
-  compactHeadersMoveToHeader.setAttribute("label", "Show To Header");
-  compactHeadersMoveToHeader.setAttribute("tooltiptext", "Shows the To header on the first line in double line mode");
+  compactHeadersMoveToHeader.setAttribute("label", extension.localizeMessage("moveToHeaderLabel"));
+  compactHeadersMoveToHeader.setAttribute("tooltiptext", extension.localizeMessage("moveToHeaderTooltip"));
   compactHeadersMoveToHeader.addEventListener("command", () => toggleToHeader());
 
   let compactHeadersMoveCcHeader = document.createXULElement("menuitem");
   compactHeadersMoveCcHeader.id = "compactHeadersMoveCcHeader";
   compactHeadersMoveCcHeader.setAttribute("type", "checkbox");
-  compactHeadersMoveCcHeader.setAttribute("label", "Show Cc Header");
-  compactHeadersMoveCcHeader.setAttribute("tooltiptext", "Shows the Cc header on the first line in double line mode");
+  compactHeadersMoveCcHeader.setAttribute("label", extension.localizeMessage("moveCcHeaderLabel"));
+  compactHeadersMoveCcHeader.setAttribute("tooltiptext", extension.localizeMessage("moveCcHeaderTooltip"));
   compactHeadersMoveCcHeader.addEventListener("command", () => toggleCcHeader());
 
   let compactHeadersMoveContentBaseheader = document.createXULElement("menuitem");
   compactHeadersMoveContentBaseheader.id = "compactHeadersMoveContentBaseheader";
   compactHeadersMoveContentBaseheader.setAttribute("type", "checkbox");
-  compactHeadersMoveContentBaseheader.setAttribute("label", "Show Website (RSS)");
-  compactHeadersMoveContentBaseheader.setAttribute("tooltiptext", "Shows the Website from RSS messages on the first line in double line mode");
+  compactHeadersMoveContentBaseheader.setAttribute("label", extension.localizeMessage("moveContentBaseheaderLabel"));
+  compactHeadersMoveContentBaseheader.setAttribute("tooltiptext", extension.localizeMessage("moveContentBaseheaderTooltip"));
   compactHeadersMoveContentBaseheader.addEventListener("command", () => toggleContentBaseHeader());
 
   let compactHeadersShowFullSubjectHeader = document.createXULElement("menuitem");
   compactHeadersShowFullSubjectHeader.id = "compactHeadersShowFullSubjectHeader";
   compactHeadersShowFullSubjectHeader.setAttribute("type", "checkbox");
-  compactHeadersShowFullSubjectHeader.setAttribute("label", "Show Full Subject");
-  compactHeadersShowFullSubjectHeader.setAttribute("tooltiptext", "Do not truncate Subject header in double line mode");
+  compactHeadersShowFullSubjectHeader.setAttribute("label", extension.localizeMessage("fullSubjectLabel"));
+  compactHeadersShowFullSubjectHeader.setAttribute("tooltiptext", extension.localizeMessage("fullSubjectTooltip"));
   compactHeadersShowFullSubjectHeader.addEventListener("command", () => toggleFullSubjectHeader());
 
   let compactHeadersmovetags = document.createXULElement("menuitem");
   compactHeadersmovetags.id = "compactHeadersmovetags";
   compactHeadersmovetags.setAttribute("type", "checkbox");
-  compactHeadersmovetags.setAttribute("label", "Show Message Tags");
-  compactHeadersmovetags.setAttribute("tooltiptext", "Show message Tags on the second line in double line mode");
+  compactHeadersmovetags.setAttribute("label", extension.localizeMessage("moveTagsLabel"));
+  compactHeadersmovetags.setAttribute("tooltiptext", extension.localizeMessage("moveTagsTooltip"));
   compactHeadersmovetags.addEventListener("command", () => toggleTags());
 
   try {
@@ -335,7 +337,7 @@ function install(window) {
     compactHeadersButton.setAttribute("class", "button button-flat");
     compactHeadersButton.image = "chrome://messenger/skin/overrides/arrow-right-12.svg";
     compactHeadersBox.setAttribute("style", "margin-inline-start: -8px; position: relative; z-index: 1;");
-    compactHeadersButton.setAttribute("tooltiptext", "Show Details");
+    compactHeadersButton.setAttribute("tooltiptext", extension.localizeMessage("showDetails"));
     var i;
     for (i = 1; i < messageHeader.childElementCount; i++) {
       messageHeader.children[i].setAttribute("persist", "style");
@@ -384,7 +386,7 @@ function install(window) {
     compactHeadersButton.setAttribute("class", "button button-flat");
     compactHeadersButton.image = "chrome://messenger/skin/overrides/arrow-down-12.svg";
     compactHeadersBox.setAttribute("style", "margin-inline-start: -8px; position: relative; z-index: 1;");
-    compactHeadersButton.setAttribute("tooltiptext", "Hide Details");
+    compactHeadersButton.setAttribute("tooltiptext", extension.localizeMessage("hideDetails"));
     var i;
     for (i = 1; i < messageHeader.childElementCount; i++) {
       messageHeader.children[i].setAttribute("persist", "style");

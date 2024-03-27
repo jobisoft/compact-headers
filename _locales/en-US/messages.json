@@ -1,0 +1,53 @@
+{
+  "extDesc": {
+    "message": "Adds a twisty to the headers, limits displayed headers to 1 or 2 lines"
+  },
+  "singleLineLabel": {
+    "message": "Single Line Headers"
+  },
+  "singleLineTooltip": {
+    "message": "Displays compact headers on a single line"
+  },
+  "hideToolbarLabel": {
+    "message": "Hide Header Toolbar"
+  },
+  "hideToolbarTooltip": {
+    "message": "Hides the header toolbar"
+  },
+  "moveToHeaderLabel": {
+    "message": "Show To Header"
+  },
+  "moveToHeaderTooltip": {
+    "message": "Shows the To header on the first line in double line mode"
+  },
+  "moveCcHeaderLabel": {
+    "message": "Show Cc Header"
+  },
+  "moveCcHeaderTooltip": {
+    "message": "Shows the Cc header on the first line in double line mode"
+  },
+  "moveContentBaseheaderLabel": {
+    "message": "Show Website (RSS)"
+  },
+  "moveContentBaseheaderTooltip": {
+    "message": "Shows the Website from RSS messages on the first line in double line mode"
+  },
+  "fullSubjectLabel": {
+    "message": "Show Full Subject"
+  },
+  "fullSubjectTooltip": {
+    "message": "Do not truncate Subject header in double line mode"
+  },
+  "moveTagsLabel": {
+    "message": "Show Message Tags"
+  },
+  "moveTagsTooltip": {
+    "message": "Show message Tags on the second line in double line mode"
+  },
+  "showDetails": {
+    "message": "Show Details"
+  },
+  "hideDetails": {
+    "message": "Hide Details"
+  }
+}

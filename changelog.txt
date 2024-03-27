@@ -2,6 +2,7 @@ Changelog for Compact Headers
 
 5.5
 Fixed the List-ID header context menu introduced in Thunderbird 125.
+Added French locale, thanks to DenB for the setup and the translation.
 Set maximum version to Thunderbird 126.*.
 
 5.4

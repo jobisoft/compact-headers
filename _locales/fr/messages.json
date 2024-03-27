@@ -1,0 +1,53 @@
+{
+  "extDesc": {
+    "message": "Ajoute à la barre d’en-tête des messages un bouton permettant de développer ou de compacter les en-têtes sur une ou deux lignes."
+  },
+  "singleLineLabel": {
+    "message": "Compacter sur une ligne"
+  },
+  "singleLineTooltip": {
+    "message": "Compacter les en-têtes sur une ligne et non deux"
+  },
+  "hideToolbarLabel": {
+    "message": "Masquer la barre d’outils"
+  },
+  "hideToolbarTooltip": {
+    "message": "Masquer la barre d’outils d’en-tête des messages"
+  },
+  "moveToHeaderLabel": {
+    "message": "Afficher « Pour »"
+  },
+  "moveToHeaderTooltip": {
+    "message": "Afficher l’en-tête « Pour » sur la première ligne (mode deux lignes)"
+  },
+  "moveCcHeaderLabel": {
+    "message": "Afficher « Copie à »"
+  },
+  "moveCcHeaderTooltip": {
+    "message": "Afficher l’en-tête « Copie à » sur la première ligne (mode deux lignes)"
+  },
+  "moveContentBaseheaderLabel": {
+    "message": "Afficher le site web (RSS)"
+  },
+  "fullSubjectLabel": {
+    "message": "Afficher le sujet complet"
+  },
+  "fullSubjectTooltip": {
+    "message": "Ne pas tronquer l’en-tête « Sujet » (mode deux lignes)"
+  },
+  "moveContentBaseheaderTooltip": {
+    "message": "Afficher le site des messages RSS sur la première ligne (mode deux lignes)"
+  },
+  "moveTagsLabel": {
+    "message": "Afficher les étiquettes"
+  },
+  "moveTagsTooltip": {
+    "message": "Afficher les étiquettes des messages sur la deuxième ligne (mode deux lignes)"
+  },
+  "showDetails": {
+    "message": "Développer les en-têtes"
+  },
+  "hideDetails": {
+    "message": "Compacter les en-têtes"
+  }
+}

@@ -734,7 +734,7 @@ var compactHeadersApi = class extends ExtensionCommon.ExtensionAPI {
   onShutdown(isAppShutdown) {
     if (isAppShutdown) {
       // Always show rss summary on startup to work around bug 1871733.
-      Services.prefs.setIntPref("rss.show.summary", 1);
+      //Services.prefs.setIntPref("rss.show.summary", 1);
       return;
     }
 

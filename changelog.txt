@@ -4,7 +4,7 @@ Changelog for Compact Headers
 Fixed the List-ID header context menu introduced in Thunderbird 125.
 Added French locale, thanks to DenB for the setup and the translation.
 Disabled the workaround for bug 187173, which now looks partially fixed.
-Set maximum version to Thunderbird 126.*.
+Set maximum version to Thunderbird 127.*.
 
 5.4
 Added option to show full Subject header in double line mode.

@@ -19,7 +19,7 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "compactHeaders@dillinger",
       "strict_min_version": "111.0",

@@ -3,7 +3,7 @@
   "name": "Compact Headers",
   "description": "__MSG_extDesc__",
   "homepage_url": "https://addons.thunderbird.net/en-US/thunderbird/addon/compact-headers/",
-  "version": "5.5",
+  "version": "5.6",
   "author": "Dillinger",
   "default_locale": "en-US",
   "experiment_apis": {
@@ -22,8 +22,8 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "compactHeaders@dillinger",
-      "strict_min_version": "111.0",
-      "strict_max_version": "130.*"
+      "strict_min_version": "128.0",
+      "strict_max_version": "131.*"
     }
   },
   "icons": {

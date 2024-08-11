@@ -1,5 +1,5 @@
-var { ExtensionCommon } = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
-var { ExtensionParent } = ChromeUtils.import("resource://gre/modules/ExtensionParent.jsm");
+var { ExtensionCommon } = ChromeUtils.importESModule("resource://gre/modules/ExtensionCommon.sys.mjs");
+var { ExtensionParent } = ChromeUtils.importESModule("resource://gre/modules/ExtensionParent.sys.mjs");
 var extension = ExtensionParent.GlobalManager.getExtension("compactHeaders@dillinger");
 
 function stopContext(e) {

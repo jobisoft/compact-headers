@@ -1,5 +1,8 @@
 Changelog for Compact Headers
 
+5.6
+ESMified the add-on.
+
 5.5
 Fixed the List-ID header context menu introduced in Thunderbird 125.
 Added French locale, thanks to DenB for the setup and the translation.

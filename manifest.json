@@ -12,7 +12,7 @@
       "parent": {
         "scopes": ["addon_parent"],
         "paths": [["compactHeadersApi"]],
-        "script": "compactHeadersApi.js"
+        "script": "implementation.js"
       }
     }
   },
@@ -22,8 +22,8 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "compactHeaders@dillinger",
-      "strict_min_version": "128.0",
-      "strict_max_version": "*"
+      "strict_min_version": "115.0",
+      "strict_max_version": "136.*"
     }
   },
   "icons": {

@@ -2,6 +2,8 @@ Changelog for Compact Headers
 
 5.6
 ESMified the add-on.
+Set minimum version to Thunderbird 115.0.
+Set maximum version to Thunderbird 136.*.
 
 5.5
 Fixed the List-ID header context menu introduced in Thunderbird 125.
